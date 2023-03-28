@@ -3,16 +3,15 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Semantlich — Das Wortbedeutungsähnlichkeitsratespiel</title>
+    <title>Semantle — 単語類似度推論ゲーム</title>
     <script src="assets/js/clipboard.js"></script>
-    <script src="assets/js/addSpecialLetter.js"></script>
     <link rel="stylesheet" href="assets/styles.css">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
     <link rel="manifest" href="assets/site.webmanifest">
     <!--
 
-    Copyright (c) 2022, Johannes Gätjen, forked from Semantle by David Turner <novalis@novalis.org> semantle.novalis.org
+    Copyright (c) 2023, Sohyun sim, forked from Semantlich by Johannes Gätjen semantlich.johannesgaetjen.de and Semantle by David Turner <novalis@novalis.org> semantle.novalis.org
 
      This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, version 3.
 
@@ -25,7 +24,7 @@
 <!-- include script here so that we can set dark mode of body on initialization -->
 <script src="assets/js/semantle.js"></script>
 <header>
-    <h2>Semantlich — Das Wortbedeutungsähnlichkeitsratespiel</h2>
+    <h2>Semantle — 単語類似度推論ゲーム</h2>
     <nav id="menu">
         <button aria-label="Settings" class="overlay-button" id="settings-button">⚙</button>
         <button aria-label="Rules" class="overlay-button" id="rules-button">?</button>
@@ -35,30 +34,21 @@
     <div class="dialog" id="rules" aria-labelledby="rules-heading" aria-modal="true" role="dialog">
         <button class="dialog-close" id="rules-close" aria-label="Schließen">&times;</button>
         <div class="dialog-content" id="rules-content">
-            <h3 id="rules-heading">Errate das geheime Lösungswort</h3>
+            <h3 id="rules-heading">秘密の単語を見つける</h3>
             <p>
-                Gebe einzelne Wörter ein (Bindestriche und Punkte sind erlaubt) und erhalte Information zur
-                Ähnlichkeit zum gesuchten Wort. Hierbei kommt es nicht wie bei vielen anderen Spielen auf die
-                Schreibweise an, sondern auf die Bedeutung und den Kontext in dem es benutzt wird. Es wird zum einen
-                die Ähnlichkeit auf einer Skala von -100 bis +100 angegeben (wobei Werte unter 0 eher selten sind), und
-                falls das geratene Wort unter den 1000 ähnlichsten Wörtern ist wird der Rang angezeigt.
+                答えは一つの単語でください。Semantleは答えが正解単語とどのぐらい似ているかを類似度点数として教えます。類似度とは、スペルではなく意味と
+                関わっています。この類似度はWord2vecから計算されました。類似度の範囲は-100から100までで、数字が高いほど正解単語と似ていると考えられます。
             </p>
             <p>
-                <b>Groß- und Kleinschreibung werden berücksichtigt!</b> "Der Anstieg" ist etwas anderes als wenn "die
-                Temperatur anstieg". Das Lösungswort ist immer <b>ohne</b> Bindestrich (wie Rheinland-Pfalz) oder
-                Akzente (wie Café) und ist bis auf wenige Ausnahmen in der grammatikalischen Grundform (z.B. ist
-                "sprichst" kein mögliches Lösungswort). Anders als sonst oft bei Wortratespielen kann das Lösungswort
-                nicht nur ein Nomen, sondern <b>eine beliebige Wortart</b> sein, also z.B. Verben, Adjektive oder sogar
-                Konjunktionen.
+                正解単語は名詞だけではなく動詞、形容詞、副詞の中であり、基本形だけです。漢字、ひらがな、カタカナの表現は含めています。同じ意味なのに書いた文字によって
+                類似度が違う時があります。その理由はテキストによって使う方が違う時があるからです。重複する単語はなるべく除去したが、どの方法もよく使っている場合は残って
+                います。どちらも答えになりますし、もしそれがヒントになれるかも知れません。
             </p>
             <p>
-                Immer um 0:00 Uhr UTC, <span id="localtime"></span>, gibt es ein neues Lösungswort. <span
-                    id="yesterday"></span>
+                正解単語は毎日国際標準時(UTC)で午後3時,日本標準時(JST)で夜12時に変わります。明日の正解単語は<span id="yesterday"></span>です。
             </p>
             <p>
-                Diese Seite verwendet Cookies um Einstellungen und den Spielfortschritt und
-                <nobr>-statistiken</nobr>
-                zu speichern.
+                このゲームはクッキを使ってゲームの設置と進行率、統計情報を保存します。
             </p>
         </div>
     </div>
@@ -67,53 +57,38 @@
     <div class="dialog" id="settings" aria-labelledby="settings-heading" aria-modal="true" role="dialog">
         <button class="dialog-close" id="settings-close" aria-label="Schließen">&times;</button>
         <div class="dialog-content" id="settings-content">
-            <h3 id="settings-heading">Einstellungen</h3>
+            <h3 id="settings-heading">設定</h3>
             <div>
                 <input type="checkbox" name="dark-mode" value="dark-mode" id="dark-mode"/>
-                <label for="dark-mode">Dark mode</label>
+                <label for="dark-mode">ダークモード</label>
             </div>
             <div>
                 <input type="checkbox" name="share-guesses" value="share-guesses" id="share-guesses"/>
-                <label for="share-guesses">Anzahl Versuche im Ergebnistext anzeigen</label>
+                <label for="share-guesses">結果共有メッセージに答えた回数を表示する</label>
             </div>
             <div>
                 <input type="checkbox" name="share-time" value="share-time" id="share-time"/>
-                <label for="share-time">Gebrauchte Zeit im Ergebnistext anzeigen</label>
+                <label for="share-time">結果共有メッセージにかかった時間を表示する</label>
             </div>
             <div>
                 <input type="checkbox" name="share-top-guess" value="share-top-guess" id="share-top-guess"/>
-                <label for="share-top-guess">Höchste Ähnlichkeit im Ergebnistext anzeigen</label>
+                <label for="share-top-guess">結果共有メッセージに最大類似度を表示する/label>
             </div>
             <div>
                 <input type="checkbox" name="share-top-info" value="share-top-info" id="share-top-info"/>
-                <label for="share-top-info">Anzahl top 10/100/1000/???? im Ergebnistext anzeigen</label>
-            </div>
-            <div>
-                <input type="checkbox" name="enable-umlauts" value="enable-umlauts" id="enable-umlauts"/>
-                <label for="enable-umlauts">Buttons für Umlaute und Eszett anzeigen</label>
+                <label for="share-top-info">結果共有メッセージに上位10/100/1000/????を表示</label>
             </div>
         </div>
     </div>
 </div>
 <p id="similarity-story"></p>
 <div id="error" style="color:#ff0000"></div>
-<form id="form" autocorrect="off" autocapitalize="none"
-      autocomplete="off">
-    <div id="umlaut-buttons">
-        <input type="button" value="Ä" id="add-ä-cap" onclick="addLetter('Ä')" class="button">
-        <input type="button" value="Ö" id="add-ö-cap" onclick="addLetter('Ö')" class="button">
-        <input type="button" value="Ü" id="add-ü-cap" onclick="addLetter('Ü')" class="button">
-        <input type="button" value="ä" id="add-ä" onclick="addLetter('ä')" class="button">
-        <input type="button" value="ö" id="add-ö" onclick="addLetter('ö')" class="button">
-        <input type="button" value="ü" id="add-ü" onclick="addLetter('ü')" class="button">
-        <input type="button" value="ß" id="add-ß" onclick="addLetter('ß')" class="button">
-    </div>
+<form id="form" autocorrect="off" autocapitalize="none" autocomplete="off">
     <div id="form-row">
         <div id="guess-wrapper">
-            <input placeholder="Raten" autocorrect="off" autocapitalize="none"
-                   autocomplete="off"
+            <input placeholder="答えを入力してください" autocorrect="off" autocapitalize="none" autocomplete="off"
                    type="text" id="guess">
-            <input type="submit" value="Raten" id="guess-btn" class="button">
+            <input type="submit" value="答える" id="guess-btn" class="button">
         </div>
     </div>
 </form>
@@ -125,80 +100,52 @@
 </table>
 
 
-<input type="button" value="Aufgeben" id="give-up-btn" class="button">
+<input type="button" value="諦める" id="give-up-btn" class="button">
 
 <footer>
-    <h3 id="faq">Fragen und Antworten</h3>
+    <h3 id="faq">よくある質問</h3>
 
-    <p><b>Was war das Lösungswort gestern?</b></p>
+    <p><b>昨日の正解は何でしたか？</b></p>
     <p>
         <span id="yesterday2"></span>
     </p>
 
-    <p><b>Was bedeutet es eigentlich, wenn zwei Wörter "ähnlich" zueinander sind?</b></p>
+    <p><b>＜類似度＞てどんな意味ですか?</b></p>
     <p>
-        Grob gesagt haben zwei Wörter dann eine hohe Ähnlichkeit zueinander, wenn sie in <i>in ähnlichen Kontexten</i>
-        verwendet werden, wobei der Kontext sich wiederum aus den verwendeten Wörtern ergibt. Anders gesehen ist die
-        Ähnlichkeit umso höher, je einfacher es ist in einem Satz das eine Wort durch das andere zu ersetzen.
-        Konkret gibt es ein paar grobe Faustregeln: Wörter haben eher eine höhere Ähnlichkeit wenn sie...
-    <ul>
-        <li>Synonyme oder Gegensätze sind,</li>
-        <li>die Wortart und -form indentisch sind,</li>
-        <li>wenn sie thematisch verwandt sind,</li>
-        <li>oder wenn sie häufig zusammen verwendet werden.</li>
-    </ul>
-    Die mathematische Grundlage für die Ähnlichkeiten bilden sogenannte <a
-        href="https://de.wikipedia.org/wiki/Worteinbettung">"word embeddings"</a>. Dabei wird jedes Wort statt mit
-    Buchstaben durch 300 Zahlen repräsentiert. Diese Zahlen ergeben Vektoren (quasi ein Punkt in
-    einem Koordinatensystem mit 300 Achsen), mit denen man rechnen kann und z.B. Distanzen und Winkel bestimmen
-    kann. Die Vektoren werden nach und nach angepasst mit dem Ziel möglichst gut in Sätzen fehlende Wörter aus den
-    umgebenden Wörtern zu rekonstruieren.
-    <br/>
-    Der Ähnlichkeitswert ergibt sich dann aus dem Winkel zwischen zwei Wortvektoren. Je kleiner der Winkel, desto
-    näher an 100 ist die Ähnlichkeit. Eine Ähnlichkeit von 0 bedeutet die Vektoren stehen im rechten Winkel
-    zueinander. Winkel über 90 Grad ergeben eine negative Ähnlichkeit. Oder auch kurz mathematisch ausgedrückt: Der
-    Ähnlichkeitswert ist die Kosinusähnlichkeit zwischen den Einbettungen der beiden Wörter in einen
-    300-dimensionalen Vektorraum, um den Faktor 100 skaliert.
+        答え
     </p>
 
-    <p><b>Was beudeuten die "????" im Ähnlichkeitsrang?</b></p>
+    <p><b>類似度が「????」の単語は?</b></p>
     <p>
-        Zur Erstellung der Liste der 1000 ähnlichsten Wörter habe ich nur Wörter benutzt, die auch in einem
-        Wörterbuch vorhanden sind (wobei das benutzte Wörterbuch auch noch einiges an inkorrekten Einträgen hat). Die
-        Wörter, die in den top 1000 wären, wenn sie nicht entfernt worden wären, werden mit "????" markiert. Es handelt
-        sich dabei meistens um Wörter mit Rechtschreibfehlern oder inkorrekter Groß- und Kleinschreibung, Abkürzungen,
-        oder auch einfach korrekte Wörter, die aber relativ selten sind. Außerdem sind Wörter, die das Lösungswort
-        selbst enthalten nicht in den "offiziellen" 1000 ähnlichsten Wörtern wenn das Lösungswort mindestens fünf
-        Buchstaben lang ist. Das sind dann meistens zusammengesetzte Wörter oder Deklinationsformen.
+        類似度上位1000の単語はよく使われて基本形の単語になります。その中には抜けたとしても正解と類似度が高い単語はら「????」に表します。
     </p>
 
-    <p><b>Ist die deutsche Version schwieriger als die englische?</b></p>
+    <p><b>質問2</b></p>
     <p>
-        Ohne genauere Information zur durchschnittlichen Anzahl Versuche und Erfolgsquoten im englischen Semantle lässt
-        sich das nicht mit Gewissheit sagen. Bis Puzzle #5 wurde in Semantlich ein anderer Datensatz zur Berechnung der
-        Ähnlichkeiten benutzt, wo öfters die Hinweise nicht so hilfreich waren. Da bin ich mir ziemlich sicher, dass es
-        schwerer war als im Englischen. Seit dem neuen Datensatz ist mein Eindruck, dass die Schwierigkeit in etwa
-        vergleichbar ist.
+        答え2
     </p>
 
-    <p><b>Wie wurden die möglichen Lösungswörter ausgewählt?</b></p>
-    <p>Ich habe die Liste der häufigsten Wörter der deutschen Sprache von <a
-            href="https://en.wiktionary.org/wiki/Wiktionary:Frequency_lists/A_Frequency_Dictionary_of_German">Wiktionary</a>
-        genommen, und Wörter mit Bindestrich, Leerzeichen oder Akzenten entfernt.
-    </p>
-
-    <p><b>Quellcode?</b></p>
+    <p><b>正解単語はどこから選びますか?</b></p>
     <p>
-        <a href="https://github.com/gaetjen/semantle-de">Voilà.</a>
+        正解単語は <a href="https://en.wiktionary.org/wiki/Wiktionary:Frequency_lists/Japanese2022_10000">Wiktionary</a>
+        から撮って、数字、ローマ字、活用形などを消去して使用します。
     </p>
 
-    <p><b>Weitere Fragen oder Feedback?</b></p>
+    <p><b>ソースコードは?</b></p>
     <p>
-        Ihr könnt mich auf <a href="https://www.reddit.com/user/JohannesGaetjen/">Reddit kontaktieren</a>.
+        <a href="https://github.com/sim-so/semantle-jp">こちらで。</a>
     </p>
 
-    <p><a href="https://semantle.novalis.org">Original Semantle</a> von David Turner. Deutsche Version von Johannes
-        Gätjen. Word embeddings von <a href="https://fasttext.cc/docs/en/crawl-vectors.html">FastText</a>.
+    <p><b>他の質問や意見があれば?</b></p>
+    <p>
+        <a href="https://github.com/sim-so/semantle-jp/issues">GitHubのイシュー</a>でお願いします。
+    </p>
+
+    <p>
+        日本語バージョンはSohyunから作られました。David Turnerの<a href="https://semantle.novalis.org">Original Semantle</a>と
+        Johannes Gätjenの<a href="http://semantlich.johannesgaetjen.de">Semantlich</a>、NewsJellyの
+        <a href="https://semantle-ko.newsjel.ly/">semantle-ko</a>を元にしています。
+        単語の埋め込み(Word embeddings)は<a href="https://fasttext.cc/docs/en/crawl-vectors.html">FastText</a>から使用しました。
     </p>
 
 </footer>

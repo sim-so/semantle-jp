@@ -4,21 +4,21 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="/assets/js/nearest1k.js"></script>
-    <title>Semantlich: Ähnlichste Wörter</title>
+    <title>Semantle: 似て言う単語リスト</title>
   </head>
   <body>
     <div id="warning" style="display:none; ">
       <div style="border:thin solid black; background-color: #ffdddd">
-        Vorsicht! Durch klicken auf diesen Warnhinweis wird die Lösung für das <span id="spoiler"></span> Puzzle sichtbar.
+        気をつけて!この警告をクリックすると今日の正解が表します。 <span id="spoiler"></span> Puzzle sichtbar.
       </div>
     </div>
     <div id="nearest" style="display:none;">
-      Das Lösungswort für Puzzle <b id="day">#{{day}}</b> ist <b id="word">{{word}}</b>. Die ähnlichsten Wörter sind:
+      <b id="day">#{{day}}</b>の正解は<b id="word">{{word}}</b>です。一番近い単語は下記のようです:
       <table >
         <tr>
-          <th>Ähnlichkeitsrang</th>
-          <th>Wort</th>
-          <th>Ähnlichkeit</th>
+          <th>類似度順位</th>
+          <th>単語</th>
+          <th>類似度</th>
         </tr>
         {% for word in words %}
         <tr>
@@ -31,6 +31,6 @@
     </div>
 
     <br/>
-    <a href="/">Zurück zur Hauptseite</a>
+    <a href="/">ホームに戻る</a>
   </body>
 </html>

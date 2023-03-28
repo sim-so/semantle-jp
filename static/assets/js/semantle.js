@@ -43,10 +43,10 @@ function share() {
     const copied = ClipboardJS.copy(text);
 
     if (copied) {
-        alert("In Zwischenablage kopiert");
+        alert("クリップボードに保存されました。");
     }
     else {
-        alert("Kopieren fehlgeschlagen");
+        alert("クリップボードに保存できません。");
     }
 }
 
@@ -58,8 +58,8 @@ function guessRow(similarity, oldGuess, percentile, guessNumber, guess) {
     let percentileText = percentile;
     let progress = "";
     let closeClass = "";
-    if (similarity >= similarityStory.rest * 100 && percentile === '(kalt)') {
-        percentileText = '<span class="weirdWord">????<span class="tooltiptext">Dieses Wort ist nicht im Wörterbuch, ist aber im Datensatz vorhanden und hat eine höhere Ähnlichkeit, als das tausendst-ähnlichste Wort.</span></span>';
+    if (similarity >= similarityStory.rest * 100 && percentile === '(1000位以上)') {
+        percentileText = '<span class="weirdWord">????<span class="tooltiptext">この単語は辞書にありませんが、データベースに含まれていて、1,000位以上です。</span></span>';
     }
     if (typeof percentile === 'number') {
             closeClass = "close";
@@ -99,26 +99,26 @@ function solveStory(guesses, puzzleNumber) {
         winOrGiveUp = 'gelöst!';
         guess_count += 1
         if (guess_count == 1) {
-            return `Ich habe Semantlich #${puzzleNumber} beim ersten Versuch erraten! Habe ich geschummelt, oder bin ich einfach nur gut? http://semantlich.johannesgaetjen.de`;
+            return `お見事です!初答えで #${puzzleNumber}番の正解に当たってました!http://semantlich.johannesgaetjen.de`;
         }
     }
     if (guess_count == 0) {
-        return `Ich habe Semantlich #${puzzleNumber} aufgegeben ohne auch nur einmal zu raten. http://semantlich.johannesgaetjen.de`;
+        return `#${puzzleNumber}番の問題を超せずに諦めました。http://semantlich.johannesgaetjen.de`;
     }
 
     let describe = function(similarity, percentile) {
         let out = `${similarity.toFixed(2)}`;
-        if (percentile != '(kalt)') {
-            out += ` (Rang ${percentile})`;
+        if (percentile != '(1000位以上)') {
+            out += ` (順位 ${percentile})`;
         }
         return out;
     }
 
     let time = storage.getItem('endTime') - storage.getItem('startTime');
     let timeFormatted = new Date(time).toISOString().substr(11, 8).replace(":", "h").replace(":", "m");
-    let timeInfo = `Zeit: ${timeFormatted}s\n`
+    let timeInfo = `所要時間: ${timeFormatted}秒\n`
     if (time > 24 * 3600000) {
-        timeInfo = 'Zeit: über 24h\n'
+        timeInfo = '所要時間: 24時間\n 以上'
     }
     if (!shareTime) {
         timeInfo = ''
@@ -130,16 +130,16 @@ function solveStory(guesses, puzzleNumber) {
         topGuesses.sort(function(a, b){return b[0]-a[0]});
         const topGuess = topGuesses[1];
         let [similarity, old_guess, percentile, guess_number] = topGuess;
-        topGuessMsg = `Höchste Ähnlichkeit: ${describe(similarity, percentile)}\n`;
+        topGuessMsg = `最大類似度: ${describe(similarity, percentile)}\n`;
     }
     let guessCountInfo = '';
     if (shareGuesses) {
-        guessCountInfo = `Versuche: ${guess_count}\n`;
+        guessCountInfo = `答えた回数: ${guess_count}\n`;
     }
 
     let [numTop10, numTop100, numTop1000, numUnknown] = [0, 0, 0, 0]
     for (const element of topGuesses.slice(1)) {
-        if (element[2] == '(kalt)') {
+        if (element[2] == '(1000位以上)') {
             if(element[0] >= similarityStory.rest * 100.0) {
                 numUnknown += 1;
                 continue;
@@ -212,18 +212,18 @@ let Semantle = (function() {
 
     async function init() {
         let yesterday = await getYesterday()
-        $('#yesterday').innerHTML = `Das Lösungswort gestern war <b>"${yesterday}"</b>.`;
-        $('#yesterday2').innerHTML = `Das Lösungswort gestern war <b>"${yesterday}"</b>.
-        <a href="/nearest1k/${yesterdayPuzzleNumber}">Hier</a> kannst du die 1000 ähnlichsten Wörter nachschauen.`;
+        $('#yesterday').innerHTML = `昨日の正解単語は<b>"${yesterday}"でした。</b>.`;
+        $('#yesterday2').innerHTML = `昨日の正解単語は<b>"${yesterday}"でした。</b>.
+        <a href="/nearest1k/${yesterdayPuzzleNumber}">ここ</a>で類似度上位1,000個の単語を確認できます。`;
         updateLocalTime();
 
         try {
             similarityStory = await getSimilarityStory(puzzleNumber);
             $('#similarity-story').innerHTML = `
-Heute ist Puzzle Nummer <b>${puzzleNumber}</b>. Das ähnlichste Wort hat eine Ähnlichkeit von
-<b>${(similarityStory.top * 100).toFixed(2)}</b>, das zehnt-ähnlichste Wort hat eine Ähnlichkeit von
-${(similarityStory.top10 * 100).toFixed(2)} und das tausend-ähnlichste Wort hat eine Ähnlichkeit von
-${(similarityStory.rest * 100).toFixed(2)}.
+<b>${puzzleNumber}</b>番正解単語を見つけてみましょう. 正解単語と一番近い単語の類似度は
+<b>${(similarityStory.top * 100).toFixed(2)}</b>です。10番目の近い単語は
+${(similarityStory.top10 * 100).toFixed(2)}で、1,000番目の近い単語は
+${(similarityStory.rest * 100).toFixed(2)}です。
 `;
         } catch {
             // we can live without this in the event that something is broken
@@ -305,13 +305,13 @@ ${(similarityStory.rest * 100).toFixed(2)}.
 
         $('#give-up-btn').addEventListener('click', async function(event) {
             if (!gameOver) {
-                if (confirm("Bist du sicher, dass du aufgeben möchtest?")) {
+                if (confirm("本当に諦めてもよろしいですか?")) {
                     const url = '/giveup/' + puzzleNumber;
                     const secret = await (await fetch(url)).text();
                     guessed.add(secret);
                     guessCount += 1;
-                    const newEntry = [100, secret, 'Das Lösungswort', guessCount];
-                    cache[secret] = {"guess": secret, "rank": "Das Lösungswort", "sim": 1};
+                    const newEntry = [100, secret, '正解', guessCount];
+                    cache[secret] = {"guess": secret, "rank": "正解単語", "sim": 1};
                     guesses.push(newEntry);
                     guesses.sort(function(a, b){return b[0]-a[0]});
                     updateGuesses(guess);
@@ -334,11 +334,11 @@ ${(similarityStory.rest * 100).toFixed(2)}.
             const guessData = await submitGuess(guess);
 
             if (guessData == null) {
-                $('#error').textContent = `Keine Antwort vom Server erhalten. Bitte versuche es später nochmal.`
+                $('#error').textContent = `サーバが応じません。あとで試してください。`
                 return false;
             }
             if (guessData.error == "unknown") {
-                $('#error').textContent = `Ich kenne das Wort ${guess} nicht. Rechtschreibung sowie Groß- und Kleinschreibung beachtet?`;
+                $('#error').textContent = `辞書から${guess}を見つかりません。`;
                 return false;
             }
 
@@ -403,7 +403,7 @@ ${(similarityStory.rest * 100).toFixed(2)}.
     }
 
     function updateGuesses(guess) {
-        let inner = `<tr><th id="chronoOrder">#</th><th id="alphaOrder">Geratenes Wort</th><th id="similarityOrder">Ähnlichkeit</th><th>Ähnlichkeitsrang</th></tr>`;
+        let inner = `<tr><th id="chronoOrder">#</th><th id="alphaOrder">答えた単語</th><th id="similarityOrder">類似度</th><th>類似度順位</th></tr>`;
         /* This is dumb: first we find the most-recent word, and put
            it at the top.  Then we do the rest. */
         for (let entry of guesses) {
@@ -532,24 +532,24 @@ ${(similarityStory.rest * 100).toFixed(2)}.
         gameOver = true;
         let response;
         if (won) {
-            response = `<p><b>Du hast es in ${guesses.length} Versuchen gefunden!</b> `;
+            response = `<p><b>正解です! ${guesses.length}で当たりました!</b> `;
         } else {
-            response = `<p><b>Du hast nach ${guesses.length - 1} Versuchen aufgegeben!</b> `;
+            response = `<p><b>${guesses.length - 1}番でやめました。</b> `;
         }
-        const commonResponse = `Du kannst noch weitere Worte eingeben um die Ähnlichkeit nachzuschauen oder <a href="/nearest1k/${puzzleNumber}">hier</a> die 1000 ähnlichsten Wörter nachschauen.</p> <p>Um <b>${getUpdateTimeHours()}:00 Uhr</b> gibt es ein neues Wort.</p>`
+        const commonResponse = `正解単語と近い上位1,000の単語<a href="/nearest1k/${puzzleNumber}">こちら</a>で確認できます。</p> <p>あと<b>${getUpdateTimeHours()}時間</b>で新しい問題が始まります。</p>`
         response += commonResponse;
         response += `<input type="button" value="Ergebnis kopieren" id="Teilen" onclick="share()" class="button"><br />`
         const totalGames = stats['wins'] + stats['giveups'] + stats['abandons'];
         response += `<br/>
-Statistik: <br/>
+記録: <br/>
 <table>
-<tr><th>Erstes Spiel:</th><td>${stats['firstPlay']}</td></tr>
-<tr><th>Anzahl Spiele gespielt:</th><td>${totalGames}</td></tr>
-<tr><th>Gewonnen:</th><td>${stats['wins']}</td></tr>
-<tr><th>Spiele in Folge gewonnen:</th><td>${stats['winStreak']}</td></tr>
-<tr><th>Aufgegeben:</th><td>${stats['giveups']}</td></tr>
-<tr><th>Nicht beendet:</th><td>${stats['abandons']}</td></tr>
-<tr><th>Gesamtzahl Versuche über alle Spiele:</th><td>${stats['totalGuesses']}</td></tr>
+<tr><th>初めて解けた問題番号:</th><td>${stats['firstPlay']}</td></tr>
+<tr><th>挑戦した回数:</th><td>${totalGames}</td></tr>
+<tr><th>正解数:</th><td>${stats['wins']}</td></tr>
+<tr><th>連続正解数:</th><td>${stats['winStreak']}</td></tr>
+<tr><th>諦めたゲーム数:</th><td>${stats['giveups']}</td></tr>
+<tr><th>決めなかったゲーム数:</th><td>${stats['abandons']}</td></tr>
+<tr><th>今まで答えた単語数の総合:</th><td>${stats['totalGuesses']}</td></tr>
 </table>
 `;
         $('#response').innerHTML = response;
