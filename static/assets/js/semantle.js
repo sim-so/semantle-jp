@@ -16,9 +16,8 @@ let guessCount = 0;
 let model = null;
 let numPuzzles = 6397;
 const now = Date.now();
-const today = Math.floor(Date.now() / 86400000);
-const initialDay = new Date('2023-03-18') / 86400000;
-const puzzleNumber = (today - initialDay) % numPuzzles;
+const initialDate = new Date('2023-03-28T00:00:00+09:00');
+const puzzleNumber = Math.floor((new Date() - initialDate) / 86400000) % numPuzzles;
 const yesterdayPuzzleNumber = (puzzleNumber + numPuzzles - 1) % numPuzzles;
 const storage = window.localStorage;
 let chrono_forward = 1;
@@ -29,7 +28,6 @@ let shareGuesses = storage.getItem("shareGuesses") === 'false' ? false: true;
 let shareTime = storage.getItem("shareTime") === 'false' ? false: true;
 let shareTopGuess = storage.getItem("shareTopGuess") === 'false' ? false: true;
 let shareTopInfo = storage.getItem("shareTopInfo") === 'false' ? false: true;
-let enableUmlauts = storage.getItem("enableUmlauts") === 'false' ? false: true;
 
 function $(id) {
     if (id.charAt(0) !== '#') return false;
@@ -87,11 +85,6 @@ function getUpdateTimeHours() {
     return midnightUtc.getHours();
 }
 
-function updateLocalTime() {
-
-    $('#localtime').innerHTML = `bzw. ${getUpdateTimeHours()}:00 Uhr deiner Zeit`;
-}
-
 function solveStory(guesses, puzzleNumber) {
     let guess_count = guesses.length - 1;
     let winOrGiveUp = 'aufgegebn.';
@@ -99,11 +92,11 @@ function solveStory(guesses, puzzleNumber) {
         winOrGiveUp = 'gelöst!';
         guess_count += 1
         if (guess_count == 1) {
-            return `お見事です!初答えで #${puzzleNumber}番の正解に当たってました!http://semantlich.johannesgaetjen.de`;
+            return `お見事です!初答えで ${puzzleNumber}番目の正解に当たってました!insertlink`;
         }
     }
     if (guess_count == 0) {
-        return `#${puzzleNumber}番の問題を超せずに諦めました。http://semantlich.johannesgaetjen.de`;
+        return `${puzzleNumber}番目の問題を答えず諦めました。insertlink`;
     }
 
     let describe = function(similarity, percentile) {
@@ -160,11 +153,11 @@ function solveStory(guesses, puzzleNumber) {
 
     let topInfo = '';
     if (shareTopInfo) {
-        topInfo = `Anzahl top 10/100/1000/????: ${numTop10}/${numTop100}/${numTop1000}/${numUnknown}\n`;
+        topInfo = `上位10/100/1000/????: ${numTop10}/${numTop100}/${numTop1000}/${numUnknown}\n`;
     }
 
-    return `Ich habe Semantlich #${puzzleNumber} (das Wortbedeutungsähnlichkeitsratespiel) ${winOrGiveUp}\n${guessCountInfo}` +
-    `${timeInfo}${topGuessMsg}${topInfo}http://semantlich.johannesgaetjen.de`;
+    return `今日のsemantleは#${puzzleNumber}(単語類似度ゲーム) ${winOrGiveUp}\n${guessCountInfo}` +
+    `${timeInfo}${topGuessMsg}${topInfo}insertlink`;
 }
 
 let Semantle = (function() {
@@ -220,11 +213,10 @@ let Semantle = (function() {
         try {
             similarityStory = await getSimilarityStory(puzzleNumber);
             $('#similarity-story').innerHTML = `
-            <b>${puzzleNumber}</b>番正解単語を見つけてみましょう. 正解単語と一番近い単語の類似度は
-            <b>${(similarityStory.top * 100).toFixed(2)}</b>です。10番目の近い単語は
-            ${(similarityStory.top10 * 100).toFixed(2)}で、1,000番目の近い単語は
-            ${(similarityStory.rest * 100).toFixed(2)}です。
-            `;
+            <b>${puzzleNumber}</b>番目の正解単語は何でしょうか。 <br/>
+            正解単語と一番近い単語の類似度は<b>${(similarityStory.top * 100).toFixed(2)}</b>です。
+            10番目の近い単語の類似度は${(similarityStory.top10 * 100).toFixed(2)}で、
+            1,000番目の近い単語類似度は${(similarityStory.rest * 100).toFixed(2)}です。`;
         } catch {
             // we can live without this in the event that something is broken
         }
@@ -289,19 +281,12 @@ let Semantle = (function() {
             shareTopInfo = event.target.checked;
         });
 
-        $('#enable-umlauts').addEventListener('click', function(event) {
-            storage.setItem('enableUmlauts', event.target.checked);
-            enableUmlauts = event.target.checked;
-            toggleUmlautButtons(enableUmlauts);
-        });
 
         $('#dark-mode').checked = darkMode;
         $('#share-guesses').checked = shareGuesses;
         $('#share-time').checked = shareTime;
         $('#share-top-guess').checked = shareTopGuess;
         $('#share-top-info').checked = shareTopInfo;
-        $('#enable-umlauts').checked = enableUmlauts;
-        toggleUmlautButtons(enableUmlauts);
 
         $('#give-up-btn').addEventListener('click', async function(event) {
             if (!gameOver) {
@@ -338,7 +323,7 @@ let Semantle = (function() {
                 return false;
             }
             if (guessData.error == "unknown") {
-                $('#error').textContent = `辞書から${guess}を見つかりません。`;
+                $('#error').textContent = `「${guess}」を辞書から見つかりませんでした。`;
                 return false;
             }
 
@@ -532,11 +517,11 @@ let Semantle = (function() {
         gameOver = true;
         let response;
         if (won) {
-            response = `<p><b>正解です! ${guesses.length}で当たりました!</b> `;
+            response = `<p><b>正解です! ${guesses.length}回の答えで当たりました!</b> `;
         } else {
-            response = `<p><b>${guesses.length - 1}番でやめました。</b> `;
+            response = `<p><b>${guesses.length - 1}回でやめました。</b> `;
         }
-        const commonResponse = `正解単語と近い上位1,000の単語<a href="/nearest1k/${puzzleNumber}">こちら</a>で確認できます。</p> <p>あと<b>${getUpdateTimeHours()}時間</b>で新しい問題が始まります。</p>`
+        const commonResponse = `正解単語と近い上位1,000の単語<a href="/nearest1k/${puzzleNumber}">こちら</a>で確認できます。</p> <p>新しい問題は今夜12時に開きます。</p>`
         response += commonResponse;
         response += `<input type="button" value="記録を保存する" id="result" onclick="share()" class="button"><br />`
         const totalGames = stats['wins'] + stats['giveups'] + stats['abandons'];
