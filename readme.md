@@ -1,7 +1,7 @@
 ### Setup
 create virtualenv:
 ```bash
-python3.10 -m venv semantle-de
+python3.10 -m venv semantle-jp
 source semantle-de/bin/activate
 ```
 
