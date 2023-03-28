@@ -17,8 +17,8 @@ from process_similar import get_nearest
 
 JST = timezone('Asia/Tokyo')
 
-NUM_SECRETS = 4955
-FIRST_DAY = date(2022, 3, 18)
+NUM_SECRETS = 6397
+FIRST_DAY = date(2023, 3, 28)
 scheduler = BackgroundScheduler()
 scheduler.start()
 
