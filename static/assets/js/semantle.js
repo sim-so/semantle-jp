@@ -14,10 +14,10 @@ let guesses = [];
 let guessed = new Set();
 let guessCount = 0;
 let model = null;
-let numPuzzles = 4955;
+let numPuzzles = 6397;
 const now = Date.now();
 const today = Math.floor(Date.now() / 86400000);
-const initialDay = new Date('2022-03-18') / 86400000;
+const initialDay = new Date('2023-03-18') / 86400000;
 const puzzleNumber = (today - initialDay) % numPuzzles;
 const yesterdayPuzzleNumber = (puzzleNumber + numPuzzles - 1) % numPuzzles;
 const storage = window.localStorage;
@@ -215,16 +215,16 @@ let Semantle = (function() {
         $('#yesterday').innerHTML = `昨日の正解単語は<b>"${yesterday}"でした。</b>.`;
         $('#yesterday2').innerHTML = `昨日の正解単語は<b>"${yesterday}"でした。</b>.
         <a href="/nearest1k/${yesterdayPuzzleNumber}">ここ</a>で類似度上位1,000個の単語を確認できます。`;
-        updateLocalTime();
+        // updateLocalTime();
 
         try {
             similarityStory = await getSimilarityStory(puzzleNumber);
             $('#similarity-story').innerHTML = `
-<b>${puzzleNumber}</b>番正解単語を見つけてみましょう. 正解単語と一番近い単語の類似度は
-<b>${(similarityStory.top * 100).toFixed(2)}</b>です。10番目の近い単語は
-${(similarityStory.top10 * 100).toFixed(2)}で、1,000番目の近い単語は
-${(similarityStory.rest * 100).toFixed(2)}です。
-`;
+            <b>${puzzleNumber}</b>番正解単語を見つけてみましょう. 正解単語と一番近い単語の類似度は
+            <b>${(similarityStory.top * 100).toFixed(2)}</b>です。10番目の近い単語は
+            ${(similarityStory.top10 * 100).toFixed(2)}で、1,000番目の近い単語は
+            ${(similarityStory.rest * 100).toFixed(2)}です。
+            `;
         } catch {
             // we can live without this in the event that something is broken
         }
@@ -538,7 +538,7 @@ ${(similarityStory.rest * 100).toFixed(2)}です。
         }
         const commonResponse = `正解単語と近い上位1,000の単語<a href="/nearest1k/${puzzleNumber}">こちら</a>で確認できます。</p> <p>あと<b>${getUpdateTimeHours()}時間</b>で新しい問題が始まります。</p>`
         response += commonResponse;
-        response += `<input type="button" value="Ergebnis kopieren" id="Teilen" onclick="share()" class="button"><br />`
+        response += `<input type="button" value="記録を保存する" id="result" onclick="share()" class="button"><br />`
         const totalGames = stats['wins'] + stats['giveups'] + stats['abandons'];
         response += `<br/>
 記録: <br/>
