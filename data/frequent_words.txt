@@ -1,5 +1,5 @@
 # from wiktionary: https://en.wiktionary.org/wiki/Wiktionary:Frequency_lists/Japanese2022_10000
-This was drawn from the complete dump of the Japanese Wikipedia on August 20, 2022 which was run through a morphological analyzer called kagome.
+# This was drawn from the complete dump of the Japanese Wikipedia on August 20, 2022 which was run through a morphological analyzer called kagome.
 の
 に
 を

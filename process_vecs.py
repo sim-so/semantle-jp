@@ -16,7 +16,7 @@ def load_dic(path: str) -> Set[str]:
     rtn = set()
     with open(path, 'r', encoding="utf-8") as f:
         for line in f.readlines():
-            word = line.strip().split(',')[11]
+            word = line.strip()
             word = unicodedata.normalize('NFKC', word)
             if is_japanese(word):
                 rtn.add(word)
@@ -30,7 +30,7 @@ if __name__ == '__main__':
     cursor = connection.cursor()
     cursor.execute("""CREATE TABLE IF NOT EXISTS guesses (word text PRIMARY KEY, vec blob)""")
     print("created table")
-    normal_words = load_dic('data/lex_3_1.csv')
+    normal_words = load_dic('data/standard_orth.txt')
     print("# words in dictionary:", len(normal_words))
     valid_nearest = []
     valid_nearest_mat = []
@@ -48,7 +48,7 @@ if __name__ == '__main__':
                 eliminated += 1
             else:
                 vec = array([float(w1) for w1 in words[1:]])
-                if word in normal_words:
+                if word in normal_words: 
                     valid_nearest.append(word)
                     valid_nearest_mat.append(vec)
                 cursor.execute("""INSERT INTO guesses values (?, ?)""", (word, pickle.dumps(vec)))

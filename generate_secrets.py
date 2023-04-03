@@ -4,9 +4,10 @@ from random import Random
 import unicodedata
 from process_vecs import is_japanese
 
-rnd = Random(133742069)
+rnd = Random(11235813)
+limit = 3000
 
-early_solutions = []
+early_solutions = ["目標", "助言"]
 
 if __name__ == '__main__':
     with open('data/valid_nearest.dat', 'rb') as f:
@@ -21,6 +22,8 @@ if __name__ == '__main__':
             words.add(word)
         else:
             removed.add(word)
+        if len(words) >= limit:
+            break
     words = words.difference(early_solutions)
     print('removed:', len(removed), removed)
     shuffle_list = list(words)
