@@ -1,7 +1,10 @@
-For Semantle/Semantlich/semantle-de:
+For Semantle/Semantlich/semantle-de/semantle-jp:
 
-Code forked from Semantle (https://gitlab.com/novalis_dt/semantle,
-semantle.novalis.org) by David Turner. Initial fork from commit
+Code forked from Semantlich (https://github.com/gaetjen/semantle-de,
+semantlich.johannesgaetjen.de) by Johannes Gätjen and Semantle
+(https://gitlab.com/novalis_dt/semantle, semantle.novalis.org) by
+David Turner. Initial fork from commit
+c892b77a314f6433504b926ae29a4a640ba7e07e (2023-03-28) and
 216f576655775250f0f64282801f433d96dddebc (2022-03-03).
 
 GNU GENERAL PUBLIC LICENSE
