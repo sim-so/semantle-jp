@@ -51,6 +51,8 @@ h2 {
 }
 
 .overlay-button {
+    position: relative;
+    color: black;
     border: 2px solid black;
     border-radius: 50%;
     height: 2em;
@@ -58,7 +60,13 @@ h2 {
     width: 2em;
 }
 
-
+.overlay-button svg {
+    width: 70%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 
 .dialog-underlay {
     background: rgba(0,0,0,.5);
