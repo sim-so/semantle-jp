@@ -382,7 +382,7 @@ let Semantle = (function() {
     }
 
     function updateGuesses(guess) {
-        let inner = `<tr><th id="chronoOrder">#</th><th id="alphaOrder">推測下単語</th><th id="similarityOrder">類似度</th><th>類似度ランク</th></tr>`;
+        let inner = `<tr><th id="chronoOrder">#</th><th id="alphaOrder">推測した単語</th><th id="similarityOrder">類似度</th><th>類似度ランク</th></tr>`;
         /* This is dumb: first we find the most-recent word, and put
            it at the top.  Then we do the rest. */
         for (let entry of guesses) {
