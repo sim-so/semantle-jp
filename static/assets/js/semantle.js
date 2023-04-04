@@ -276,17 +276,11 @@ let Semantle = (function() {
             shareTopGuess = event.target.checked;
         });
 
-        $('#share-top-info').addEventListener('click', function(event) {
-            storage.setItem('shareTopInfo', event.target.checked);
-            shareTopInfo = event.target.checked;
-        });
-
 
         $('#dark-mode').checked = darkMode;
         $('#share-guesses').checked = shareGuesses;
         $('#share-time').checked = shareTime;
         $('#share-top-guess').checked = shareTopGuess;
-        $('#share-top-info').checked = shareTopInfo;
 
         $('#give-up-btn').addEventListener('click', async function(event) {
             if (!gameOver) {
