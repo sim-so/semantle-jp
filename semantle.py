@@ -80,7 +80,7 @@ def get_guess(day: int, word: str):
     else:
         try:
             rtn["sim"] = word2vec.similarity(app.secrets[day], word)
-            rtn["rank"] = "1000位以上"
+            rtn["rank"] = "1000位以内"
         except KeyError:
             return jsonify({"error": "unknown"}), 404
     return jsonify(rtn)
@@ -100,7 +100,7 @@ def get_solution_yesterday(today: int):
 @app.route('/nearest1k/<int:day>')
 def get_nearest_1k(day: int):
     if day not in app.secrets:
-        return "この日の一番近い単語は今使用できません。" \
+        return "この日の最も近い単語は今使用できません。" \
                "一昨日から明日までのだけ確認できます。", 404
     solution = app.secrets[day]
     words = [
