@@ -90,9 +90,9 @@
 <form id="form" autocorrect="off" autocapitalize="none" autocomplete="off">
     <div id="form-row">
         <div id="guess-wrapper">
-            <input placeholder="答えを入力してください" autocorrect="off" autocapitalize="none" autocomplete="off"
+            <input placeholder="推測した単語を入力してください" autocorrect="off" autocapitalize="none" autocomplete="off"
                    type="text" id="guess">
-            <input type="submit" value="推測する" id="guess-btn" class="button">
+            <input type="submit" value="決定" id="guess-btn" class="button">
         </div>
     </div>
 </form>
@@ -112,95 +112,75 @@
 
     <p><b>「せマントル（Semantle）」はどのようなゲームですか？</b></p>
     <p>
-        <ul>
-            「せマントル（Semantle）」は、毎日出題される「今日の言葉」を当てるゲームです。
-            推測した単語が正解単語とどの程度類似しているかを類似度スコアで知らせてくれます。
-            推測した単語の類似度スコアを参考にして、正解単語を推理してみてください。
-        </ul>
+        「せマントル（Semantle）」は、毎日出題される「今日の言葉」を当てるゲームです。
+        推測した単語が正解単語とどの程度類似しているかを類似度スコアで知らせてくれます。
+        推測した単語の類似度スコアを参考にして、正解単語を推理してみてください。
     </p>
 
     <p><b>正解の単語にはどのような単語が出題されるのでしょうか？</b></p>
     <p>
-        <ul>
-            正解の単語には、固有名詞、助詞、感動詞、及び記号以外の品詞の基本形の単語が含まれています。 
-            <a href="https://en.wiktionary.org/wiki/Wiktionary:Frequency_lists/Japanese2022_10000">Wiktionary</a>からよく使われる日本語の単語を取り出し、基準に合わせてフィルタリングしてリストを作成し、そのリストからランダムに正解の単語を選択します。
-        </ul>
+        正解の単語には、固有名詞、助詞、感動詞、及び記号以外の品詞の基本形の単語が含まれています。 
+        <a href="https://en.wiktionary.org/wiki/Wiktionary:Frequency_lists/Japanese2022_10000">Wiktionary</a>からよく使われる日本語の単語を取り出し、基準に合わせてフィルタリングしてリストを作成し、そのリストからランダムに正解の単語を選択します。
     </p>
 
     <p><b>「類似度スコア」は何ですか？</b></p>
     <p>
-        <ul>
-            推測した単語が正解の単語と意味や文脈的にどの程度近いかを-100から+100までの数字で算出したスコアです。スコアが大きいほど、正解の単語と類似していると見なすことができます。
-            推測した単語が正解の単語と最も類似している上位1,000個の単語に含まれる場合、類似度ランキングも確認できます。
-            類似度の計算には、Common CrawlおよびWikipediaのデータで事前学習された<a href="https://fasttext.cc/docs/en/crawl-vectors.html">FastTex</a>tが使用されました。
-            訓練されたデータによっては偏りがある場合があります。
-        </ul>
+        推測した単語が正解の単語と意味や文脈的にどの程度近いかを-100から+100までの数字で算出したスコアです。スコアが大きいほど、正解の単語と類似していると見なすことができます。
+        推測した単語が正解の単語と最も類似している上位1,000個の単語に含まれる場合、類似度ランキングも確認できます。
+        類似度の計算には、Common CrawlおよびWikipediaのデータで事前学習された<a href="https://fasttext.cc/docs/en/crawl-vectors.html">FastTex</a>tが使用されました。
+        訓練されたデータによっては偏りがある場合があります。
     </p>
 
     <p><b>どのような単語が正解の単語と類似度が高いのでしょうか？</b></p>
     <p>
+        単語間の類似度は単語の意味や文脈、単語の言語的特性などが類似度に影響を与えます。
         <ul>
-            単語間の類似度は単語の意味や文脈、単語の言語的特性などが類似度に影響を与えます。
-            <ul>
-                <li>一般的に、意味が似ている単語同士は類似度が高くなります。例えば「リンゴ」と「ナシ」は果物の種類として意味が似ているので、類似度が高くなるでしょう。</li>
-                <li>反対語はしばしば、共有する特徴や特性があるため、高い類似度を持っていることがあります。例えば、「hot」と「cold」は反対語ですが、両方とも温度を表す特徴を共有しているので、類似度が高くなる場合があります。</li>
-                <li>意味や文脈上で似ていない場合、スペルの類似性は類似度と関係がありません。</li>
-            </ul>
+            <li>一般的に、意味が似ている単語同士は類似度が高くなります。例えば「リンゴ」と「ナシ」は果物の種類として意味が似ているので、類似度が高くなるでしょう。</li>
+            <li>反対語はしばしば、共有する特徴や特性があるため、高い類似度を持っていることがあります。例えば、「hot」と「cold」は反対語ですが、両方とも温度を表す特徴を共有しているので、類似度が高くなる場合があります。</li>
+            <li>意味や文脈上で似ていない場合、スペルの類似性は類似度と関係がありません。</li>
         </ul>
     </p>
 
     <p><b>「正しい単語であるのに推測ができない単語があります。</b></p>
     <p>
-        <ul>
-            残念ながら、Word2Vecの辞書にはすべての単語が含まれていません。
-            学習に使用されたデータにその単語が十分に登場しなかった場合、辞書にない可能性が高くなります。
-        </ul>
+        残念ながら、Word2Vecの辞書にはすべての単語が含まれていません。
+        学習に使用されたデータにその単語が十分に登場しなかった場合、辞書にない可能性が高くなります。
     </p>
 
     <p><b>単語の表記はどうすればいいですか？漢字で書いた方がいいですか？それとも全てひらがなで書いた方がいいですか？</b></p>
     <p>
-        <ul>
-            正解の単語は、できるだけよく使われる表記に従っています。
-            しかし、推理する場合は、すべての表記を試すことができます。
-            同じ単語でも、表記によって類似度が異なる場合は、単語が使用される文脈が反映されていると考えることもできます。
-            ひらがなやカタカナの表記をする場合は、同音異字の場合にも注意してください。
-        </ul>
+        正解の単語は、できるだけよく使われる表記に従っています。
+        しかし、推理する場合は、すべての表記を試すことができます。
+        同じ単語でも、表記によって類似度が異なる場合は、単語が使用される文脈が反映されていると考えることもできます。
+        ひらがなやカタカナの表記をする場合は、同音異字の場合にも注意してください。
     </p>
 
     <p><b>昨日の正解は何ですか？</b></p>
     <p>
-        <ul>
-            <span id="yesterday2"></span>
-        </ul>
+        <span id="yesterday2"></span>
     </p>
 
     <p><b>一日に複数のゲームをプレイすることはできますか？</b></p>
     <p>
-        <ul>
-            「シマントル」は1日に1回だけしかプレイできません。「Wordle」と同じく、「1日1回、全員同じ答え」でプレイすることが鍵となっています。
-        </ul>
+        「シマントル」は1日に1回だけしかプレイできません。「Wordle」と同じく、「1日1回、全員同じ答え」でプレイすることが鍵となっています。
     </p>
 
     <p><b>ソースコードは?</b></p>
     <p>
-        <ul>
-            <a href="https://github.com/sim-so/semantle-jp">こちら</a>でご覧いただけます。
-        </ul>
+        <a href="https://github.com/sim-so/semantle-jp">こちら</a>でご覧いただけます。
     </p>
 
     <p><b>他に質問やフィードバックがある場合、どのように送信できますか？</b></p>
     <p>
-        <ul>
-            <a href="https://github.com/sim-so/semantle-jp/issues">GitHubのイシュー</a>またはメールでお送りください。
-        </ul>
+        <a href="https://github.com/sim-so/semantle-jp/issues">GitHubのイシュー</a>またはメールでお送りください。
     </p>
 
     <hr>
-    <p>
-        日本語バージョンはシム・ソヒョン（Sim Sohyun）から作られました。David Turnerの<a href="https://semantle.novalis.org">Original Semantle</a>と
+    <p><small>
+        Semantleの日本語バージョンはSim Sohyunが作りました。David Turnerの<a href="https://semantle.novalis.org">Original Semantle</a>と
         Johannes Gätjenの<a href="http://semantlich.johannesgaetjen.de">Semantlich</a>を元にしています。
-        単語の埋め込み(Word embeddings)は<a href="https://fasttext.cc/docs/en/crawl-vectors.html">FastText</a>から使用しました。
-    </p>
+        単語の埋め込み(Word embeddings)は<a href="https://fasttext.cc/docs/en/crawl-vectors.html">FastText</a>から使用します。
+    </small></p>
 
 </footer>
 </body>
