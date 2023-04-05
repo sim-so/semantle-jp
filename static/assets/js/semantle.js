@@ -317,7 +317,7 @@ let Semantle = (function() {
                 return false;
             }
             if (guessData.error == "unknown") {
-                $('#error').textContent = `「${guess}」は「セマントル」の辞書にはありません。`;
+                $('#error').textContent = `「${guess}」はセマントルの辞書にはありません。`;
                 return false;
             }
 
