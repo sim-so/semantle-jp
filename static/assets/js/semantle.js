@@ -56,7 +56,7 @@ function guessRow(similarity, oldGuess, percentile, guessNumber, guess) {
     let percentileText = percentile;
     let progress = "";
     let closeClass = "";
-    if (similarity >= similarityStory.rest * 100 && percentile === '(1000位以内)') {
+    if (similarity >= similarityStory.rest * 100 && percentile === '(1000位以下)') {
         percentileText = '<span class="weirdWord">????<span class="tooltiptext">この単語は辞書にはありませんが、データベースに含まれ、1,000位以内にランクインしています。</span></span>';
     }
     if (typeof percentile === 'number') {
@@ -101,7 +101,7 @@ function solveStory(guesses, puzzleNumber) {
 
     let describe = function(similarity, percentile) {
         let out = `${similarity.toFixed(2)}`;
-        if (percentile != '(1000位以内)') {
+        if (percentile != '(1000位以下)') {
             out += ` (ランク ${percentile})`;
         }
         return out;
@@ -132,7 +132,7 @@ function solveStory(guesses, puzzleNumber) {
 
     let [numTop10, numTop100, numTop1000, numUnknown] = [0, 0, 0, 0]
     for (const element of topGuesses.slice(1)) {
-        if (element[2] == '(1000位以内)') {
+        if (element[2] == '(1000位以下)') {
             if(element[0] >= similarityStory.rest * 100.0) {
                 numUnknown += 1;
                 continue;
