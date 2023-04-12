@@ -1,5 +1,5 @@
 # from 日本語を読むための語彙データベース(教師用) made by Matusita Tatsuhiko(松下龍彦) : http://www17408ui.sakura.ne.jp/tatsum/database.html (downloaded at 2023-04-02)
-# Only extracted the standard orthography of nouns, verbs, adverbs, adjectives.
+# Extracted the standard orthography of nouns, verbs, adverbs, adjectives.
 する
 いる
 ある

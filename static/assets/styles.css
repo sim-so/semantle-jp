@@ -53,15 +53,15 @@ h2 {
 .overlay-button {
     position: relative;
     color: black;
-    border: 2px solid black;
-    border-radius: 50%;
+    border: none;
+    background: none;
     height: 2em;
     font-weight: bold;
     width: 2em;
 }
 
 .overlay-button svg {
-    width: 70%;
+    width: 100%;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -103,6 +103,14 @@ h2 {
     width: 1em;
     z-index: 2;
 }
+
+.dialog-close svg {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 
 .dialog-content {
     max-height: calc(100vh - 4em);
