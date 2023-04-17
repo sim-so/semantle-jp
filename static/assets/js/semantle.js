@@ -284,7 +284,7 @@ let Semantle = (function() {
 
         $('#give-up-btn').addEventListener('click', async function(event) {
             if (!gameOver) {
-                if (confirm("ブアップして、今日の正解を見ますか？")) {
+                if (confirm("ギブアップして、今日の正解を見ますか？")) {
                     const url = '/giveup/' + puzzleNumber;
                     const secret = await (await fetch(url)).text();
                     guessed.add(secret);
