@@ -284,7 +284,7 @@ let Semantle = (function() {
 
         $('#give-up-btn').addEventListener('click', async function(event) {
             if (!gameOver) {
-                if (confirm("本当に諦めますか？")) {
+                if (confirm("ブアップして、今日の正解を見ますか？")) {
                     const url = '/giveup/' + puzzleNumber;
                     const secret = await (await fetch(url)).text();
                     guessed.add(secret);
@@ -523,10 +523,10 @@ let Semantle = (function() {
 記録: <br/>
 <table>
 <tr><th>初めて解けたパズル:</th><td>${stats['firstPlay']}</td></tr>
-<tr><th>挑戦したゲームの数:</th><td>${totalGames}</td></tr>
+<tr><th>プレイ回数:</th><td>${totalGames}</td></tr>
 <tr><th>正解回数:</th><td>${stats['wins']}</td></tr>
 <tr><th>連続正解回数:</th><td>${stats['winStreak']}</td></tr>
-<tr><th>諦めたゲームの数:</th><td>${stats['giveups']}</td></tr>
+<tr><th>ギブアップしたゲームの数:</th><td>${stats['giveups']}</td></tr>
 <tr><th>これまで推測した単語の数:</th><td>${stats['totalGuesses']}</td></tr>
 </table>
 `;
