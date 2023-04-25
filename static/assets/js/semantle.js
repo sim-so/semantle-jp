@@ -294,10 +294,8 @@ let Semantle = (function() {
     }
 
     const url = "/hint/" + puzzleNumber + "/" + hintRank;
-    const response = await fetch(url);
     try {
-        const data = await response.json();
-        const hint_word = data.word;
+        const hint_word = (await fetch(url)).text();
         hints_used += 1;
         hints_words.push(hint_word);
         storage.setItem("hint_words", JSON.stringify(hints_words));
@@ -417,7 +415,7 @@ let Semantle = (function() {
 
         $('#hint').addEventListener('click', async function(event) {
             if (!gameOver) {
-                hintWord = await suggestHint(guesses);    /* Amendment for Apr 25, 2023 */
+                await suggestHint(guesses);    /* Amendment for Apr 25, 2023 */
             }
         });
 

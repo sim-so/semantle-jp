@@ -127,5 +127,4 @@ def give_up(day: int):
 @app.route('/hint/<int:day>/<int:rank>')
 def get_hint(day: int, rank: int):
     hint_word = app.nearests_words[day][rank]
-    rtn = get_guess(day, hint_word)
-    return rtn
+    return hint_word
