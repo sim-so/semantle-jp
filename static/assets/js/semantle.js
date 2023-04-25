@@ -58,7 +58,7 @@ const cache = {};
 let similarityStory = null;
 
 function guessRow(similarity, oldGuess, percentile, guessNumber, guess) {
-    let percentileText = percentile > 1000 ? "(1000位以下)" : percentile;
+    let percentileText = percentile > 1000 ? "(1000位以下)" : "(cold)";
     let progress = "";
     let closeClass = "";
     if (similarity >= similarityStory.rest * 100 && percentile > 1000) {
@@ -195,6 +195,20 @@ let Semantle = (function() {
 
     async function submitGuess(guess, is_hint=false) {
         const guessData = await getGuess(guess);
+
+        if (guessData == null) {
+            $('#error').textContent = `サーバーが応答していません。再度お試しください。`
+            return false;
+        }
+        if (guessData.error == "unknown") {
+            $('#error').textContent = `「${guess}」はセマントルの辞書にはありません。`;
+            return false;
+        }
+
+        if (guessData.sim == 1 && !gameOver) {
+            endGame(true, true);
+        }
+
         cache[guess] = guessData;
 
         let percentile = guessData.rank;
@@ -418,20 +432,12 @@ let Semantle = (function() {
 
             $('#guess').value = "";
 
-            let guessData = await submitGuess(guess);
+            let gres = await submitGuess(guess);
 
-            if (guessData == null) {
-                $('#error').textContent = `サーバーが応答していません。再度お試しください。`
-                return false;
-            }
-            if (guessData.error == "unknown") {
-                $('#error').textContent = `「${guess}」はセマントルの辞書にはありません。`;
-                return false;
+            if (gres != false) {
+                $('#guess').value = "";
             }
 
-            if (guessData.sim == 1 && !gameOver) {
-                endGame(true, true);
-            }
             return false;
         });
 
