@@ -31,12 +31,14 @@ with open('data/secrets.txt', 'r', encoding='utf-8') as f:
 print("initializing nearest words for solutions")
 app.secrets = dict()
 app.nearests = dict()
+app.nearests_words = dict()
 current_puzzle = (utc.localize(datetime.utcnow()).astimezone(JST).date() - FIRST_DAY).days % NUM_SECRETS
 for offset in range(-2, 2):
     puzzle_number = (current_puzzle + offset) % NUM_SECRETS
     secret_word = secrets[puzzle_number]
     app.secrets[puzzle_number] = secret_word
     app.nearests[puzzle_number] = get_nearest(puzzle_number, secret_word, valid_nearest_words, valid_nearest_vecs)
+    app.nearests_words[puzzle_number] = [word for word in app.nearests[puzzle_number].keys()]
 
 
 @scheduler.scheduled_job(trigger=CronTrigger(hour=1, minute=0, timezone=JST))
@@ -49,8 +51,11 @@ def update_nearest():
         del app.secrets[to_delete]
     if to_delete in app.nearests:
         del app.nearests[to_delete]
+    if to_delete in app.nearests_words:
+        del app.nearests_words[to_delete]
     app.secrets[next_puzzle] = next_word
     app.nearests[next_puzzle] = get_nearest(next_puzzle, next_word, valid_nearest_words, valid_nearest_vecs)
+    app.nearests_words[next_puzzle] = [word for word in app.nearests[next_puzzle].keys()]
 
 
 @app.route('/')
@@ -80,7 +85,7 @@ def get_guess(day: int, word: str):
     else:
         try:
             rtn["sim"] = word2vec.similarity(app.secrets[day], word)
-            rtn["rank"] = "1000位以下"
+            rtn["rank"] = 1001
         except KeyError:
             return jsonify({"error": "unknown"}), 404
     return jsonify(rtn)
@@ -88,8 +93,8 @@ def get_guess(day: int, word: str):
 
 @app.route('/similarity/<int:day>')
 def get_similarity(day: int):
-    nearest_dists = sorted([v[1] for v in app.nearests[day].values()])
-    return jsonify({"top": nearest_dists[-2], "top10": nearest_dists[-11], "rest": nearest_dists[0]})
+    top, top10, rest = app.nearests_words[day][0], app.nearests_words[day][9], app.nearests_words[day][-1]
+    return jsonify({"top": app.nearests[day][top][1], "top10": app.nearests[day][top10][1], "rest": app.nearests[day][rest][1]})
 
 
 @app.route('/yesterday/<int:today>')
@@ -118,3 +123,9 @@ def give_up(day: int):
         return '残念ですね。。。', 404
     else:
         return app.secrets[day]
+    
+@app.route('/hint/<int:day>/<int:rank>')
+def get_hint(day: int, rank: int):
+    hint_word = app.nearests_words[day][rank]
+    rtn = get_guess(day, hint_word)
+    return rtn

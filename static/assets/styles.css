@@ -137,6 +137,10 @@ h2 {
     height: 2.5em;
     padding: .5em;
 }
+#hint-btn {
+    height: 2.5em;
+    padding: .5em;
+}
 
 #guesses {
     margin-bottom:40px;
@@ -151,7 +155,7 @@ th {
     text-align: start;
 }
 
-th#chronoOrder, th#alphaOrder, th#similarityOrder, input#give-up-btn, input#guess-btn, input#lower, button {
+th#chronoOrder, th#alphaOrder, th#similarityOrder, input#give-up-btn, input#hint-btn, input#guess-btn, input#lower, button {
     cursor: pointer;
 }
 
