@@ -165,7 +165,7 @@ function solveStory(guesses, puzzleNumber) {
         topInfo = `上位10/100/1000/????: ${numTop10}/${numTop100}/${numTop1000}/${numUnknown}\n`;
     }
 
-    return `今日のセマントル${puzzleNumber}(単語類似度推理ゲーム) ${winOrGiveUp}\n${guessCountInfo}` +
+    return `今日のイミトル${puzzleNumber}(単語類似度推理ゲーム) ${winOrGiveUp}\n${guessCountInfo}` +
     `${timeInfo}${topGuessMsg}${topInfo}insertlink`;
 }
 
@@ -201,7 +201,7 @@ let Semantle = (function() {
             return false;
         }
         if (guessData.error == "unknown") {
-            $('#error').textContent = `「${guess}」はセマントルの辞書にはありません。`;
+            $('#error').textContent = `「${guess}」はイミトルの辞書にはありません。`;
             return false;
         }
 
