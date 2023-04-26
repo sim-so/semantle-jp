@@ -1,5 +1,5 @@
-# セマントル(Semantle) - 単語類似度パズル
-> このリポジトリはJohannes Gätjenさんの[Semantlich](http://semantlich.johannesgaetjen.de/)をフォークして、日本語のバージョンに改めたものです。
+# イミトル(Semantle日本語版) - 単語類似度パズル
+> このリポジトリはJohannes Gätjenさんの[Semantlich](http://semantlich.johannesgaetjen.de/)をフォークしたものです。
 
 ## 設置 Settings
 
