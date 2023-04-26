@@ -58,7 +58,7 @@ const cache = {};
 let similarityStory = null;
 
 function guessRow(similarity, oldGuess, percentile, guessNumber, guess) {
-    let percentileText = percentile > 1000 ? "(1000位以下)" : "(cold)";
+    let percentileText = typeof percentile === 'number' ? "1000位以下" : percentile;
     let progress = "";
     let closeClass = "";
     if (similarity >= similarityStory.rest * 100 && percentile > 1000) {
@@ -68,7 +68,7 @@ function guessRow(similarity, oldGuess, percentile, guessNumber, guess) {
     if (hints_words.indexOf(oldGuess) !== -1) {
         hw = ' 💡';
     }
-    if (typeof percentile === 'number') {
+    if (percentile < 1001) {
             closeClass = "close";
             percentileText = `<span class="percentile">${percentile}</span>&nbsp;`;
             progress = ` <span class="progress-container">
@@ -254,48 +254,54 @@ let Semantle = (function() {
 
     async function suggestHint(guesses) {
     function highest_unguessed(guesses) {
-        for (let i = 1; i < guesses.length; i++) {
+        // The index of the first guess may be 0.
+        for (let i = 0; i < guesses.length; i++) {
             if (guesses[i][2] !== i+1) {
-                return i;
+                return i+1;
             }
+        }
+        // User can guess top n-words in a row, of course, rarely.
+        // For instance, user has guesssed only top 3 words, then the 4th word will be suggested.
+        if (guesses.length < 1000) {
+            return guesses[guesses.length-1][2]+1
         }
         // user has guesses all of the top 1k except the actual word.
         return -1;
     }
-    function getHintNumber(guesses) {
-        if (guesses.length === 0) {
-            return 1;
+    function getHintRank(guesses) {
+        const top1k_guesses = guesses.filter(guess => guess[2] < 1001);
+        if (top1k_guesses.length === 0) {
+            return 1000;
         }
-        const top1k_guesses = guesses.filter(guess => guess[2]);
-        
         let highest = guesses[0][2];
         for (const guess of guesses) {
             highest = Math.min(guess[2], highest);
         }
-        let ratio = 4.5;
+        let ratio = 4;
         if (highest > 600) {
-            ratio = 4.25;
+            ratio = 4.5;
         } else if (highest > 300) {
-            ratio = 4;
+            ratio = 4.25;
         }
         let guess = Math.floor((highest * 3 + 1) / ratio);
         if (guess == highest) {
-            guess += 1;
-            if (guess == 1) {
+            guess -= 1;
+            if (guess == 0) {
                 return highest_unguessed(top1k_guesses);
             }
         }
-        return guess-1;
+        return guess;
         }
 
-    const hintRank = getHintNumber(guesses);
+    const hintRank = getHintRank(guesses);
+    
     if (hintRank < 0) {
-        alert("No more hints are available.");
+        alert("残りのヒントがありません。");
     }
-
     const url = "/hint/" + puzzleNumber + "/" + hintRank;
+    const response = await fetch(url);
     try {
-        const hint_word = (await fetch(url)).text();
+        const hint_word = await response.text();
         hints_used += 1;
         hints_words.push(hint_word);
         storage.setItem("hint_words", JSON.stringify(hints_words));
@@ -413,7 +419,7 @@ let Semantle = (function() {
             }
         });
 
-        $('#hint').addEventListener('click', async function(event) {
+        $('#hint-btn').addEventListener('click', async function(event) {
             if (!gameOver) {
                 await suggestHint(guesses);    /* Amendment for Apr 25, 2023 */
             }

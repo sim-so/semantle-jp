@@ -93,7 +93,7 @@ def get_guess(day: int, word: str):
 
 @app.route('/similarity/<int:day>')
 def get_similarity(day: int):
-    top, top10, rest = app.nearests_words[day][0], app.nearests_words[day][9], app.nearests_words[day][-1]
+    top, top10, rest = app.nearests_words[day][1], app.nearests_words[day][10], app.nearests_words[day][-1]
     return jsonify({"top": app.nearests[day][top][1], "top10": app.nearests[day][top10][1], "rest": app.nearests[day][rest][1]})
 
 
