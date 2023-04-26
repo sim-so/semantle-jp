@@ -21,6 +21,8 @@ const puzzleNumber = Math.floor((new Date() - initialDate) / 86400000) % numPuzz
 const yesterdayPuzzleNumber = (puzzleNumber + numPuzzles - 1) % numPuzzles;
 const storage = window.localStorage;
 let chrono_forward = 1;
+let hints_used = 0;
+var hints_words = JSON.parse(storage.getItem("hints_words") || "[]");
 let prefersDarkColorScheme = false;
 // settings
 let darkMode = storage.getItem("darkMode") === 'true';
@@ -37,7 +39,10 @@ function $(id) {
 function share() {
     // We use the stored guesses here, because those are not updated again
     // once you win -- we don't want to include post-win guesses here.
-    const text = solveStory(JSON.parse(storage.getItem("guesses")), puzzleNumber);
+    const text = solveStory(JSON.parse(storage.getItem("guesses")), 
+                            puzzleNumber,
+                            parseInt(storage.getItem("winState")),
+                            hints_used);
     const copied = ClipboardJS.copy(text);
 
     if (copied) {
@@ -53,13 +58,17 @@ const cache = {};
 let similarityStory = null;
 
 function guessRow(similarity, oldGuess, percentile, guessNumber, guess) {
-    let percentileText = percentile;
+    let percentileText = typeof percentile === 'number' ? "1000位以下" : percentile;
     let progress = "";
     let closeClass = "";
-    if (similarity >= similarityStory.rest * 100 && percentile === '1000位以下') {
+    if (similarity >= similarityStory.rest * 100 && percentile > 1000) {
         percentileText = '<span class="weirdWord">????<span class="tooltiptext">この単語は辞書にはありませんが、データベースに含まれ、1,000位以内にランクインしています。</span></span>';
     }
-    if (typeof percentile === 'number') {
+    var hw = '';
+    if (hints_words.indexOf(oldGuess) !== -1) {
+        hw = ' 💡';
+    }
+    if (percentile < 1001) {
             closeClass = "close";
             percentileText = `<span class="percentile">${percentile}</span>&nbsp;`;
             progress = ` <span class="progress-container">
@@ -74,7 +83,7 @@ function guessRow(similarity, oldGuess, percentile, guessNumber, guess) {
     } else {
         color = '#000';
     }
-    return `<tr><td>${guessNumber}</td><td style="color:${color}" onclick="select('${oldGuess}', secretVec);">${oldGuess}</td><td>${similarity.toFixed(2)}</td><td class="${closeClass}">${percentileText}${progress}
+    return `<tr><td>${guessNumber}</td><td style="color:${color}" onclick="select('${oldGuess}', secretVec);">${oldGuess}${hw}</td><td>${similarity.toFixed(2)}</td><td class="${closeClass}">${percentileText}${progress}
 </td></tr>`;
 
 }
@@ -87,21 +96,21 @@ function getUpdateTimeHours() {
 
 function solveStory(guesses, puzzleNumber) {
     let guess_count = guesses.length - 1;
-    let winOrGiveUp = 'aufgegebn.';
+    let winOrGiveUp = 'ギブアップ';
     if (storage.getItem("winState") == 1) {
-        winOrGiveUp = 'gelöst!';
+        winOrGiveUp = '正解!';
         guess_count += 1
         if (guess_count == 1) {
-            return `お見事です!初答えでパズル${puzzleNumber}の正解に当てました!insertlink`;
+            return `お見事です!初答えでパズル${puzzleNumber}の正解に当てました! https://semantoru.com/`;
         }
     }
     if (guess_count == 0) {
-        return `パズル${puzzleNumber}に何の試みもせず、諦めました。insertlink`;
+        return `パズル${puzzleNumber}を開けてすぐあきらめました。 https://semantoru.com/`;
     }
 
     let describe = function(similarity, percentile) {
         let out = `${similarity.toFixed(2)}`;
-        if (percentile != '1000位以下') {
+        if (percentile - 1001) {
             out += ` (ランク ${percentile})`;
         }
         return out;
@@ -156,7 +165,7 @@ function solveStory(guesses, puzzleNumber) {
         topInfo = `上位10/100/1000/????: ${numTop10}/${numTop100}/${numTop1000}/${numUnknown}\n`;
     }
 
-    return `今日のセマントル${puzzleNumber}(単語類似度推理ゲーム) ${winOrGiveUp}\n${guessCountInfo}` +
+    return `今日のイミトル${puzzleNumber}(単語類似度推理ゲーム) ${winOrGiveUp}\n${guessCountInfo}` +
     `${timeInfo}${topGuessMsg}${topInfo}insertlink`;
 }
 
@@ -171,7 +180,7 @@ let Semantle = (function() {
         }
     }
 
-    async function submitGuess(word) {
+    async function getGuess(word) {
         if (cache.hasOwnProperty(word)) {
             return cache[word];
         }
@@ -184,6 +193,55 @@ let Semantle = (function() {
         }
     }
 
+    async function submitGuess(guess, is_hint=false) {
+        const guessData = await getGuess(guess);
+
+        if (guessData == null) {
+            $('#error').textContent = `サーバーが応答していません。再度お試しください。`
+            return false;
+        }
+        if (guessData.error == "unknown") {
+            $('#error').textContent = `「${guess}」はイミトルの辞書にはありません。`;
+            return false;
+        }
+
+        if (guessData.sim == 1 && !gameOver) {
+            endGame(true, true);
+        }
+
+        cache[guess] = guessData;
+
+        let percentile = guessData.rank;
+        let similarity = guessData.sim * 100.0;
+        if (!guessed.has(guess)) {
+            if (guessCount == 0) {
+                storage.setItem('startTime', Date.now())
+            }
+            guessCount += 1;
+            guessed.add(guess);
+
+            const newEntry = [similarity, guess, percentile, guessCount];
+            guesses.push(newEntry);
+
+            if (!gameOver) {
+                const stats = getStats();
+                if (!is_hint) {
+                    stats['totalGuesses'] += 1;
+                }
+                storage.setItem('stats', JSON.stringify(stats));
+            }
+        }
+        guesses.sort(function(a, b){return b[0]-a[0]});
+
+        if (!gameOver) {
+            saveGame(-1, -1);
+        }
+
+        chrono_forward = 1;
+        updateGuesses(guess);
+    }
+
+
     async function getNearby(word) {
         const url = "/nearby/" + word ;
         const response = await fetch(url);
@@ -193,6 +251,66 @@ let Semantle = (function() {
             return null;
         }
     }
+
+    async function suggestHint(guesses) {
+    function highest_unguessed(guesses) {
+        // The index of the first guess may be 0.
+        for (let i = 0; i < guesses.length; i++) {
+            if (guesses[i][2] !== i+1) {
+                return i+1;
+            }
+        }
+        // User can guess top n-words in a row, of course, rarely.
+        // For instance, user has guesssed only top 3 words, then the 4th word will be suggested.
+        if (guesses.length < 1000) {
+            return guesses[guesses.length-1][2]+1
+        }
+        // user has guesses all of the top 1k except the actual word.
+        return -1;
+    }
+    function getHintRank(guesses) {
+        const top1k_guesses = guesses.filter(guess => guess[2] < 1001);
+        if (top1k_guesses.length === 0) {
+            return 1000;
+        }
+        let highest = guesses[0][2];
+        for (const guess of guesses) {
+            highest = Math.min(guess[2], highest);
+        }
+        let ratio = 4;
+        if (highest > 600) {
+            ratio = 4.5;
+        } else if (highest > 300) {
+            ratio = 4.25;
+        }
+        let guess = Math.floor((highest * 3 + 1) / ratio);
+        if (guess == highest) {
+            guess -= 1;
+            if (guess == 0) {
+                return highest_unguessed(top1k_guesses);
+            }
+        }
+        return guess;
+        }
+
+    const hintRank = getHintRank(guesses);
+    
+    if (hintRank < 0) {
+        alert("残りのヒントがありません。");
+    }
+    const url = "/hint/" + puzzleNumber + "/" + hintRank;
+    const response = await fetch(url);
+    try {
+        const hint_word = await response.text();
+        hints_used += 1;
+        hints_words.push(hint_word);
+        storage.setItem("hint_words", JSON.stringify(hints_words));
+        submitGuess(hint_word, true);
+    } catch (e) {
+        console.log(e);
+        alert("Fetching hint failed");
+    }
+}
 
     async function getYesterday() {
         const url = "/yesterday/" + puzzleNumber
@@ -227,6 +345,8 @@ let Semantle = (function() {
             storage.removeItem("winState");
             storage.removeItem("startTime");
             storage.removeItem("endTime");
+            storage.removeItem("hints_words");
+            storage.removeItem("hints_used");
             storage.setItem("puzzleNumber", puzzleNumber);
         }
 
@@ -299,6 +419,12 @@ let Semantle = (function() {
             }
         });
 
+        $('#hint-btn').addEventListener('click', async function(event) {
+            if (!gameOver) {
+                await suggestHint(guesses);    /* Amendment for Apr 25, 2023 */
+            }
+        });
+
         $('#form').addEventListener('submit', async function(event) {
             event.preventDefault();
             $('#guess').focus();
@@ -310,56 +436,19 @@ let Semantle = (function() {
 
             $('#guess').value = "";
 
-            const guessData = await submitGuess(guess);
+            let gres = await submitGuess(guess);
 
-            if (guessData == null) {
-                $('#error').textContent = `サーバーが応答していません。再度お試しください。`
-                return false;
-            }
-            if (guessData.error == "unknown") {
-                $('#error').textContent = `「${guess}」はセマントルの辞書にはありません。`;
-                return false;
+            if (gres != false) {
+                $('#guess').value = "";
             }
 
-            guess = guessData.guess
-            cache[guess] = guessData;
-
-            let percentile = guessData.rank;
-            let similarity = guessData.sim * 100.0;
-            if (!guessed.has(guess)) {
-                if (guessCount == 0) {
-                    storage.setItem('startTime', Date.now())
-                }
-                guessCount += 1;
-                guessed.add(guess);
-
-                const newEntry = [similarity, guess, percentile, guessCount];
-                guesses.push(newEntry);
-
-                if (!gameOver) {
-                    const stats = getStats();
-                    stats['totalGuesses'] += 1;
-                    storage.setItem('stats', JSON.stringify(stats));
-                }
-            }
-            guesses.sort(function(a, b){return b[0]-a[0]});
-
-            if (!gameOver) {
-                saveGame(-1, -1);
-            }
-
-            chrono_forward = 1;
-
-            updateGuesses(guess);
-
-            if (guessData.sim == 1 && !gameOver) {
-                endGame(true, true);
-            }
             return false;
         });
 
         const winState = storage.getItem("winState");
         if (winState != null) {
+            hints_words = JSON.parse(storage.getItem("hints_words") || "[]");
+            hints_used = JSON.parse(storage.getItem("hints_used") || "0");
             guesses = JSON.parse(storage.getItem("guesses"));
             for (let guess of guesses) {
                 guessed.add(guess[1]);
@@ -447,6 +536,8 @@ let Semantle = (function() {
 
         storage.setItem("winState", winState);
         storage.setItem("guesses", JSON.stringify(guesses));
+        storage.setItem("hints_used", JSON.stringify(hints_used));
+        storage.setItem("hints_words", JSON.stringify(hints_words));
     }
 
     function getStats() {
@@ -463,11 +554,13 @@ let Semantle = (function() {
                 'giveups' : 0,
                 'abandons' : 0,
                 'totalPlays' : 0,
+                'hints' : 0,
             };
             storage.setItem("stats", JSON.stringify(stats));
             return stats;
         } else {
             const stats = JSON.parse(oldStats);
+            stats['hints'] = stats['hints'] || 0;
             if (stats['lastPlay'] != puzzleNumber) {
                 const onStreak = (stats['lastPlay'] == puzzleNumber - 1);
                 if (onStreak) {
@@ -503,6 +596,7 @@ let Semantle = (function() {
                 stats['winStreak'] = 0;
                 stats['giveups'] += 1;
             }
+            stats['hints'] += hints_used;
             storage.setItem("stats", JSON.stringify(stats));
         }
 
@@ -528,10 +622,12 @@ let Semantle = (function() {
 <tr><th>連続正解回数:</th><td>${stats['winStreak']}</td></tr>
 <tr><th>ギブアップしたゲームの数:</th><td>${stats['giveups']}</td></tr>
 <tr><th>これまで推測した単語の数:</th><td>${stats['totalGuesses']}</td></tr>
+<tr><th>ヒントの単語の数:</th><td>${stats['hints']}</td></tr>
 </table>
 `;
         $('#response').innerHTML = response;
 
+        hints_used = [];
         if (countStats) {
             saveGame(guesses.length, won ? 1 : 0);
         }
