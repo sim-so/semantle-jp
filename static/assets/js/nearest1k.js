@@ -8,7 +8,7 @@ function init() {
     const now = Date.now();
     const today = Math.floor(Date.now() / 86400000);
     const initialDay = new Date('2023-04-02') / 86400000;
-    const numPuzzles = 3001;
+    const numPuzzles = 2860;
     const puzzleNumber = (today - initialDay) % numPuzzles;
 
     const day = parseInt($('#day').innerHTML.substring(1))
