@@ -127,7 +127,7 @@ def give_up(day: int):
     
 @app.route('/hint/<int:day>/<int:rank>/<string:hint_type>')
 def get_hint(day: int, rank: int, hint_type: str):
-    if hint_type == "const":
+    if hint_type == "fixed":
         return app.nearests_words[day][rank]
     elif hint_type == "distance":
         highest_word = app.nearests_words[day][rank]

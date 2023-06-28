@@ -272,7 +272,7 @@ let Semantle = (function() {
         const top1k_guesses = guesses.filter(guess => guess[2] < 1001);
         if (top1k_guesses.length === 0) {
             return {
-                hint_type: "const",
+                hintType: "fixed",
                 rank: 1000};
         }
         let highest = guesses[0][2];
@@ -281,7 +281,7 @@ let Semantle = (function() {
         }
         if (highest == 1) {
             return {
-                hintType: "const",
+                hintType: "fixed",
                 rank: highest_unguessed(top1k_guesses)};
         }
         return {
