@@ -13,7 +13,7 @@ from flask import (
 from pytz import utc, timezone
 
 import word2vec
-from process_similar import get_nearest
+from process_similar import get_nearest, get_farthest
 
 JST = timezone('Asia/Tokyo')
 
@@ -32,12 +32,13 @@ print("initializing nearest words for solutions")
 app.secrets = dict()
 app.nearests = dict()
 app.nearests_words = dict()
+app.nearests_words_vec_idx = dict()
 current_puzzle = (utc.localize(datetime.utcnow()).astimezone(JST).date() - FIRST_DAY).days % NUM_SECRETS
 for offset in range(-2, 2):
     puzzle_number = (current_puzzle + offset) % NUM_SECRETS
     secret_word = secrets[puzzle_number]
     app.secrets[puzzle_number] = secret_word
-    app.nearests[puzzle_number] = get_nearest(puzzle_number, secret_word, valid_nearest_words, valid_nearest_vecs)
+    app.nearests[puzzle_number], app.nearests_words_vec_idx[puzzle_number] = get_nearest(puzzle_number, secret_word, valid_nearest_words, valid_nearest_vecs)
     app.nearests_words[puzzle_number] = [word for word in app.nearests[puzzle_number].keys()]
 
 
@@ -124,7 +125,13 @@ def give_up(day: int):
     else:
         return app.secrets[day]
     
-@app.route('/hint/<int:day>/<int:rank>')
-def get_hint(day: int, rank: int):
-    hint_word = app.nearests_words[day][rank]
-    return hint_word
+@app.route('/hint/<int:day>/<int:rank>/<string:hint_type>')
+def get_hint(day: int, rank: int, hint_type: str):
+    if hint_type == "const":
+        return app.nearests_words[day][rank]
+    elif hint_type == "distance":
+        highest_word = app.nearests_words[day][rank]
+        k = int(rank / 3)
+        k_words = app.nearests_words[day][rank-k:rank+1]
+        k_words_idx = app.nearests_words_vec_idx[day][rank-k:rank+1]
+        return get_farthest(highest_word, k_words, k_words_idx, valid_nearest_vecs, k)

@@ -26,9 +26,10 @@ def dump_nearest(puzzle_num: int, word: str, words: List[str], mat: array, k: in
     for idx, (w, d) in enumerate(result):
         closeness[w] = (idx, d)
     closeness[word] = ("正解!", 1)
+    words_vec_idx = sim_idxs[sort_args].tolist()
     with open(f'data/near/{puzzle_num}.dat', 'wb') as f:
-        pickle.dump(closeness, f)
-    return closeness
+        pickle.dump((closeness, words_vec_idx), f)
+    return closeness, words_vec_idx
 
 
 def get_nearest(puzzle_num: int, word: str, words: List[str], mat: array) -> Dict[str, Tuple[str, float]]:
@@ -38,3 +39,13 @@ def get_nearest(puzzle_num: int, word: str, words: List[str], mat: array) -> Dic
             return pickle.load(f)
     except FileNotFoundError:
         return dump_nearest(puzzle_num, word, words, mat)
+    
+def get_farthest(word: str, words: List[str], words_vec_idx: array, mat: array, k: int = 300) -> str:
+    words_a = np.array(words)
+    words_vec_idx_a = np.array(words_vec_idx)
+    word_idx = words.index(word)
+    mat = mat[words_vec_idx_a]
+    sim_idxs, sim_dists = most_similar(mat, word_idx, k)
+    sort_args = np.argsort(sim_dists)
+    words_sorted = words_a[sim_idxs[sort_args]]
+    return words_sorted[0]
