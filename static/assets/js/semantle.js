@@ -14,7 +14,7 @@ let guesses = [];
 let guessed = new Set();
 let guessCount = 0;
 let model = null;
-let numPuzzles = 3001;
+let numPuzzles = 2860;
 const now = Date.now();
 const initialDate = new Date('2023-04-02T00:00:00+09:00');
 const puzzleNumber = Math.floor((new Date() - initialDate) / 86400000) % numPuzzles;
@@ -271,34 +271,30 @@ let Semantle = (function() {
     function getHintRank(guesses) {
         const top1k_guesses = guesses.filter(guess => guess[2] < 1001);
         if (top1k_guesses.length === 0) {
-            return 1000;
+            return {
+                hint_type: "const",
+                rank: 1000};
         }
         let highest = guesses[0][2];
         for (const guess of guesses) {
             highest = Math.min(guess[2], highest);
         }
-        let ratio = 4;
-        if (highest > 600) {
-            ratio = 4.5;
-        } else if (highest > 300) {
-            ratio = 4.25;
+        if (highest == 1) {
+            return {
+                hintType: "const",
+                rank: highest_unguessed(top1k_guesses)};
         }
-        let guess = Math.floor((highest * 3 + 1) / ratio);
-        if (guess == highest) {
-            guess -= 1;
-            if (guess == 0) {
-                return highest_unguessed(top1k_guesses);
-            }
-        }
-        return guess;
+        return {
+            hintType: "distance",
+            rank: highest};
         }
 
-    const hintRank = getHintRank(guesses);
+    const hintParam = getHintRank(guesses);
     
-    if (hintRank < 0) {
+    if (hintParam.rank < 0) {
         alert("残りのヒントがありません。");
     }
-    const url = "/hint/" + puzzleNumber + "/" + hintRank;
+    const url = "/hint/" + puzzleNumber + "/" + hintParam.rank + "/" + hintParam.hintType;
     const response = await fetch(url);
     try {
         const hint_word = await response.text();

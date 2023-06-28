@@ -1,0 +1,1480 @@
+[2023-05-31 19:18:40 +0900] [77793] [INFO] Starting gunicorn 20.1.0
+[2023-05-31 19:18:40 +0900] [77793] [INFO] Listening at: http://127.0.0.1:8000 (77793)
+[2023-05-31 19:18:40 +0900] [77793] [INFO] Using worker: sync
+[2023-05-31 19:18:40 +0900] [77799] [INFO] Booting worker with pid: 77799
+[2023-05-31 19:19:47 +0900] [77793] [INFO] Handling signal: hup
+--- Logging error ---
+Traceback (most recent call last):
+  File "/Users/simso/miniconda3/envs/semantle/lib/python3.10/logging/__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+RuntimeError: reentrant call inside <_io.BufferedWriter name='<stderr>'>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/simso/miniconda3/envs/semantle/lib/python3.10/logging/__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "/Users/simso/miniconda3/envs/semantle/lib/python3.10/site-packages/gunicorn/arbiter.py", line 242, in handle_chld
+    self.reap_workers()
+  File "/Users/simso/miniconda3/envs/semantle/lib/python3.10/site-packages/gunicorn/arbiter.py", line 530, in reap_workers
+    self.log.warning(
+  File "/Users/simso/miniconda3/envs/semantle/lib/python3.10/site-packages/gunicorn/glogging.py", line 261, in warning
+    self.error_log.warning(msg, *args, **kwargs)
+  File "/Users/simso/miniconda3/envs/semantle/lib/python3.10/logging/__init__.py", line 1489, in warning
+    self._log(WARNING, msg, args, **kwargs)
+  File "/Users/simso/miniconda3/envs/semantle/lib/python3.10/logging/__init__.py", line 1624, in _log
+    self.handle(record)
+  File "/Users/simso/miniconda3/envs/semantle/lib/python3.10/logging/__init__.py", line 1634, in handle
+    self.callHandlers(record)
+  File "/Users/simso/miniconda3/envs/semantle/lib/python3.10/logging/__init__.py", line 1696, in callHandlers
+    hdlr.handle(record)
+  File "/Users/simso/miniconda3/envs/semantle/lib/python3.10/logging/__init__.py", line 968, in handle
+    self.emit(record)
+  File "/Users/simso/miniconda3/envs/semantle/lib/python3.10/logging/__init__.py", line 1108, in emit
+    self.handleError(record)
+  File "/Users/simso/miniconda3/envs/semantle/lib/python3.10/logging/__init__.py", line 1021, in handleError
+    sys.stderr.write('--- Logging error ---\n')
+RuntimeError: reentrant call inside <_io.BufferedWriter name='<stderr>'>
+Call stack:
+  File "/Users/simso/miniconda3/envs/semantle/bin/gunicorn", line 8, in <module>
+    sys.exit(run())
+  File "/Users/simso/miniconda3/envs/semantle/lib/python3.10/site-packages/gunicorn/app/wsgiapp.py", line 67, in run
+    WSGIApplication("%(prog)s [OPTIONS] [APP_MODULE]").run()
+  File "/Users/simso/miniconda3/envs/semantle/lib/python3.10/site-packages/gunicorn/app/base.py", line 231, in run
+    super().run()
+  File "/Users/simso/miniconda3/envs/semantle/lib/python3.10/site-packages/gunicorn/app/base.py", line 72, in run
+    Arbiter(self).run()
+  File "/Users/simso/miniconda3/envs/semantle/lib/python3.10/site-packages/gunicorn/arbiter.py", line 223, in run
+    self.log.info("Handling signal: %s", signame)
+  File "/Users/simso/miniconda3/envs/semantle/lib/python3.10/site-packages/gunicorn/glogging.py", line 264, in info
+    self.error_log.info(msg, *args, **kwargs)
+Message: 'Handling signal: %s'
+Arguments: ('hup',)
+[2023-05-31 19:19:47 +0900] [77793] [INFO] Hang up: Master
+[2023-05-31 19:19:47 +0900] [77866] [INFO] Booting worker with pid: 77866
+[2023-05-31 19:20:21 +0900] [77793] [WARNING] Worker with pid 77866 was terminated due to signal 1
+[2023-05-31 19:20:21 +0900] [78877] [INFO] Booting worker with pid: 78877
+[2023-05-31 22:16:31 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:78877)
+[2023-05-31 22:16:31 +0900] [78877] [INFO] Worker exiting (pid: 78877)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 57
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+[2023-05-31 22:16:32 +0900] [80456] [INFO] Booting worker with pid: 80456
+[2023-05-31 22:20:33 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:80456)
+[2023-05-31 22:20:33 +0900] [80456] [INFO] Worker exiting (pid: 80456)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 57
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+[2023-05-31 22:20:33 +0900] [80463] [INFO] Booting worker with pid: 80463
+[2023-05-31 22:21:50 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:80463)
+[2023-05-31 22:21:51 +0900] [80463] [INFO] Worker exiting (pid: 80463)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 57
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+[2023-05-31 22:21:51 +0900] [80478] [INFO] Booting worker with pid: 80478
+[2023-05-31 22:28:50 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:80478)
+[2023-05-31 22:28:50 +0900] [80478] [INFO] Worker exiting (pid: 80478)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 57
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+[2023-05-31 22:28:50 +0900] [80504] [INFO] Booting worker with pid: 80504
+[2023-05-31 22:34:34 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:80504)
+[2023-05-31 22:34:34 +0900] [80504] [INFO] Worker exiting (pid: 80504)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 57
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+[2023-05-31 22:34:34 +0900] [80521] [INFO] Booting worker with pid: 80521
+[2023-05-31 22:51:49 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:80521)
+[2023-05-31 22:51:49 +0900] [80521] [INFO] Worker exiting (pid: 80521)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 57
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+[2023-05-31 22:51:49 +0900] [80525] [INFO] Booting worker with pid: 80525
+[2023-05-31 23:08:39 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:80525)
+[2023-05-31 23:08:39 +0900] [80525] [INFO] Worker exiting (pid: 80525)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 57
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+[2023-05-31 23:08:39 +0900] [80527] [INFO] Booting worker with pid: 80527
+[2023-05-31 23:15:11 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:80527)
+[2023-05-31 23:15:11 +0900] [80527] [INFO] Worker exiting (pid: 80527)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 57
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+[2023-05-31 23:15:11 +0900] [80533] [INFO] Booting worker with pid: 80533
+[2023-05-31 23:31:18 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:80533)
+[2023-05-31 23:31:19 +0900] [80533] [INFO] Worker exiting (pid: 80533)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 57
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+[2023-05-31 23:31:19 +0900] [80546] [INFO] Booting worker with pid: 80546
+[2023-05-31 23:51:08 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:80546)
+[2023-05-31 23:51:08 +0900] [80546] [INFO] Worker exiting (pid: 80546)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 57
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+[2023-05-31 23:51:08 +0900] [80568] [INFO] Booting worker with pid: 80568
+[2023-06-01 00:00:17 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:80568)
+[2023-06-01 00:00:17 +0900] [80568] [INFO] Worker exiting (pid: 80568)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 57
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+[2023-06-01 00:00:17 +0900] [80587] [INFO] Booting worker with pid: 80587
+[2023-06-01 00:16:24 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:80587)
+[2023-06-01 00:16:24 +0900] [80587] [INFO] Worker exiting (pid: 80587)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 00:16:25 +0900] [80593] [INFO] Booting worker with pid: 80593
+[2023-06-01 00:33:22 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:80593)
+[2023-06-01 00:33:22 +0900] [80593] [INFO] Worker exiting (pid: 80593)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 00:33:22 +0900] [80602] [INFO] Booting worker with pid: 80602
+[2023-06-01 00:52:25 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:80602)
+[2023-06-01 00:52:25 +0900] [80602] [INFO] Worker exiting (pid: 80602)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 00:52:25 +0900] [80610] [INFO] Booting worker with pid: 80610
+[2023-06-01 01:08:35 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:80610)
+[2023-06-01 01:08:35 +0900] [80610] [INFO] Worker exiting (pid: 80610)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 01:08:35 +0900] [80627] [INFO] Booting worker with pid: 80627
+[2023-06-01 01:26:00 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:80627)
+[2023-06-01 01:26:00 +0900] [80627] [INFO] Worker exiting (pid: 80627)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 01:26:00 +0900] [80629] [INFO] Booting worker with pid: 80629
+[2023-06-01 01:42:10 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:80629)
+[2023-06-01 01:42:10 +0900] [80629] [INFO] Worker exiting (pid: 80629)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 01:42:10 +0900] [80637] [INFO] Booting worker with pid: 80637
+[2023-06-01 01:58:45 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:80637)
+[2023-06-01 01:58:45 +0900] [80637] [INFO] Worker exiting (pid: 80637)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 01:58:45 +0900] [80658] [INFO] Booting worker with pid: 80658
+[2023-06-01 02:13:04 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:80658)
+[2023-06-01 02:13:04 +0900] [80658] [INFO] Worker exiting (pid: 80658)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 02:13:04 +0900] [80662] [INFO] Booting worker with pid: 80662
+[2023-06-01 02:20:17 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:80662)
+[2023-06-01 02:20:17 +0900] [80662] [INFO] Worker exiting (pid: 80662)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 02:20:17 +0900] [80676] [INFO] Booting worker with pid: 80676
+[2023-06-01 02:36:45 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:80676)
+[2023-06-01 02:36:45 +0900] [80676] [INFO] Worker exiting (pid: 80676)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 02:36:45 +0900] [80683] [INFO] Booting worker with pid: 80683
+[2023-06-01 02:48:36 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:80683)
+[2023-06-01 02:48:36 +0900] [80683] [INFO] Worker exiting (pid: 80683)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 02:48:36 +0900] [80691] [INFO] Booting worker with pid: 80691
+[2023-06-01 03:06:09 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:80691)
+[2023-06-01 03:06:09 +0900] [80691] [INFO] Worker exiting (pid: 80691)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 03:06:10 +0900] [80704] [INFO] Booting worker with pid: 80704
+[2023-06-01 03:11:09 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:80704)
+[2023-06-01 03:11:09 +0900] [80704] [INFO] Worker exiting (pid: 80704)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 03:11:09 +0900] [80736] [INFO] Booting worker with pid: 80736
+[2023-06-01 03:16:55 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:80736)
+[2023-06-01 03:16:55 +0900] [80736] [INFO] Worker exiting (pid: 80736)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 03:16:55 +0900] [80764] [INFO] Booting worker with pid: 80764
+[2023-06-01 03:22:46 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:80764)
+[2023-06-01 03:22:46 +0900] [80764] [INFO] Worker exiting (pid: 80764)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 03:22:46 +0900] [80775] [INFO] Booting worker with pid: 80775
+[2023-06-01 03:28:32 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:80775)
+[2023-06-01 03:28:32 +0900] [80775] [INFO] Worker exiting (pid: 80775)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 03:28:32 +0900] [80779] [INFO] Booting worker with pid: 80779
+[2023-06-01 03:46:28 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:80779)
+[2023-06-01 03:46:28 +0900] [80779] [INFO] Worker exiting (pid: 80779)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 03:46:28 +0900] [80790] [INFO] Booting worker with pid: 80790
+[2023-06-01 04:02:30 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:80790)
+[2023-06-01 04:02:30 +0900] [80790] [INFO] Worker exiting (pid: 80790)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 04:02:30 +0900] [80830] [INFO] Booting worker with pid: 80830
+[2023-06-01 04:17:06 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:80830)
+[2023-06-01 04:17:06 +0900] [80830] [INFO] Worker exiting (pid: 80830)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 04:17:06 +0900] [80835] [INFO] Booting worker with pid: 80835
+[2023-06-01 04:36:40 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:80835)
+[2023-06-01 04:36:40 +0900] [80835] [INFO] Worker exiting (pid: 80835)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 04:36:40 +0900] [80870] [INFO] Booting worker with pid: 80870
+[2023-06-01 04:54:45 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:80870)
+[2023-06-01 04:54:45 +0900] [80870] [INFO] Worker exiting (pid: 80870)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 04:54:45 +0900] [80887] [INFO] Booting worker with pid: 80887
+[2023-06-01 05:11:08 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:80887)
+[2023-06-01 05:11:08 +0900] [80887] [INFO] Worker exiting (pid: 80887)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 05:11:08 +0900] [80891] [INFO] Booting worker with pid: 80891
+[2023-06-01 05:28:32 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:80891)
+[2023-06-01 05:28:32 +0900] [80891] [INFO] Worker exiting (pid: 80891)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 05:28:32 +0900] [80902] [INFO] Booting worker with pid: 80902
+[2023-06-01 05:44:32 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:80902)
+[2023-06-01 05:44:32 +0900] [80902] [INFO] Worker exiting (pid: 80902)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 05:44:32 +0900] [80911] [INFO] Booting worker with pid: 80911
+[2023-06-01 06:02:02 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:80911)
+[2023-06-01 06:02:02 +0900] [80911] [INFO] Worker exiting (pid: 80911)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 06:02:02 +0900] [80988] [INFO] Booting worker with pid: 80988
+[2023-06-01 06:18:39 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:80988)
+[2023-06-01 06:18:39 +0900] [80988] [INFO] Worker exiting (pid: 80988)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 06:18:39 +0900] [80996] [INFO] Booting worker with pid: 80996
+[2023-06-01 06:39:20 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:80996)
+[2023-06-01 06:39:20 +0900] [80996] [INFO] Worker exiting (pid: 80996)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 06:39:20 +0900] [81020] [INFO] Booting worker with pid: 81020
+[2023-06-01 06:56:49 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:81020)
+[2023-06-01 06:56:49 +0900] [81020] [INFO] Worker exiting (pid: 81020)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 06:56:49 +0900] [81028] [INFO] Booting worker with pid: 81028
+[2023-06-01 07:33:34 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:81028)
+[2023-06-01 07:33:34 +0900] [81028] [INFO] Worker exiting (pid: 81028)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 07:33:34 +0900] [81059] [INFO] Booting worker with pid: 81059
+[2023-06-01 07:50:52 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:81059)
+[2023-06-01 07:50:52 +0900] [81059] [INFO] Worker exiting (pid: 81059)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 07:50:52 +0900] [81061] [INFO] Booting worker with pid: 81061
+[2023-06-01 08:00:21 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:81061)
+[2023-06-01 08:00:21 +0900] [81061] [INFO] Worker exiting (pid: 81061)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 08:00:21 +0900] [81127] [INFO] Booting worker with pid: 81127
+[2023-06-01 08:09:29 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:81127)
+[2023-06-01 08:09:29 +0900] [81127] [INFO] Worker exiting (pid: 81127)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 08:09:29 +0900] [81131] [INFO] Booting worker with pid: 81131
+[2023-06-01 08:18:33 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:81131)
+[2023-06-01 08:18:33 +0900] [81131] [INFO] Worker exiting (pid: 81131)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 08:18:33 +0900] [81133] [INFO] Booting worker with pid: 81133
+[2023-06-01 08:27:58 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:81133)
+[2023-06-01 08:27:58 +0900] [81133] [INFO] Worker exiting (pid: 81133)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 08:27:59 +0900] [81155] [INFO] Booting worker with pid: 81155
+[2023-06-01 08:36:45 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:81155)
+[2023-06-01 08:36:45 +0900] [81155] [INFO] Worker exiting (pid: 81155)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 08:36:45 +0900] [81174] [INFO] Booting worker with pid: 81174
+[2023-06-01 08:55:11 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:81174)
+[2023-06-01 08:55:11 +0900] [81174] [INFO] Worker exiting (pid: 81174)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 08:55:11 +0900] [81195] [INFO] Booting worker with pid: 81195
+[2023-06-01 09:07:32 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:81195)
+[2023-06-01 09:07:32 +0900] [81195] [INFO] Worker exiting (pid: 81195)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 09:07:32 +0900] [81205] [INFO] Booting worker with pid: 81205
+[2023-06-01 09:25:20 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:81205)
+[2023-06-01 09:25:20 +0900] [81205] [INFO] Worker exiting (pid: 81205)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 09:25:20 +0900] [81210] [INFO] Booting worker with pid: 81210
+[2023-06-01 09:31:51 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:81210)
+[2023-06-01 09:31:51 +0900] [81210] [INFO] Worker exiting (pid: 81210)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 09:31:52 +0900] [81222] [INFO] Booting worker with pid: 81222
+[2023-06-01 09:49:04 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:81222)
+[2023-06-01 09:49:04 +0900] [81222] [INFO] Worker exiting (pid: 81222)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 09:49:04 +0900] [81225] [INFO] Booting worker with pid: 81225
+[2023-06-01 10:06:35 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:81225)
+[2023-06-01 10:06:35 +0900] [81225] [INFO] Worker exiting (pid: 81225)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 10:06:35 +0900] [81238] [INFO] Booting worker with pid: 81238
+[2023-06-01 10:31:06 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:81238)
+[2023-06-01 10:31:06 +0900] [81238] [INFO] Worker exiting (pid: 81238)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 10:31:06 +0900] [81300] [INFO] Booting worker with pid: 81300
+[2023-06-01 19:28:19 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:81300)
+[2023-06-01 19:28:19 +0900] [81300] [INFO] Worker exiting (pid: 81300)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 19:28:19 +0900] [84754] [INFO] Booting worker with pid: 84754
+[2023-06-01 19:39:03 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:84754)
+[2023-06-01 19:39:03 +0900] [84754] [INFO] Worker exiting (pid: 84754)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 19:39:03 +0900] [84768] [INFO] Booting worker with pid: 84768
+[2023-06-01 20:10:54 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:84768)
+[2023-06-01 20:10:54 +0900] [84768] [INFO] Worker exiting (pid: 84768)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 20:10:55 +0900] [84819] [INFO] Booting worker with pid: 84819
+[2023-06-01 20:27:11 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:84819)
+[2023-06-01 20:27:11 +0900] [84819] [INFO] Worker exiting (pid: 84819)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 20:27:11 +0900] [84846] [INFO] Booting worker with pid: 84846
+[2023-06-01 20:57:49 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:84846)
+[2023-06-01 20:57:49 +0900] [84846] [INFO] Worker exiting (pid: 84846)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 20:57:49 +0900] [84909] [INFO] Booting worker with pid: 84909
+[2023-06-01 21:15:09 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:84909)
+[2023-06-01 21:15:09 +0900] [84909] [INFO] Worker exiting (pid: 84909)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 21:15:09 +0900] [84921] [INFO] Booting worker with pid: 84921
+[2023-06-01 21:45:28 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:84921)
+[2023-06-01 21:45:28 +0900] [84921] [INFO] Worker exiting (pid: 84921)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 21:45:28 +0900] [85053] [INFO] Booting worker with pid: 85053
+[2023-06-01 22:01:59 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:85053)
+[2023-06-01 22:01:59 +0900] [85053] [INFO] Worker exiting (pid: 85053)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 22:01:59 +0900] [85065] [INFO] Booting worker with pid: 85065
+[2023-06-01 22:36:59 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:85065)
+[2023-06-01 22:36:59 +0900] [85065] [INFO] Worker exiting (pid: 85065)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 22:36:59 +0900] [85139] [INFO] Booting worker with pid: 85139
+[2023-06-01 22:54:03 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:85139)
+[2023-06-01 22:54:03 +0900] [85139] [INFO] Worker exiting (pid: 85139)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 22:54:03 +0900] [85149] [INFO] Booting worker with pid: 85149
+[2023-06-01 23:15:16 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:85149)
+[2023-06-01 23:15:17 +0900] [85149] [INFO] Worker exiting (pid: 85149)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 23:15:17 +0900] [85260] [INFO] Booting worker with pid: 85260
+[2023-06-01 23:23:23 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:85260)
+[2023-06-01 23:23:23 +0900] [85260] [INFO] Worker exiting (pid: 85260)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 23:23:23 +0900] [85272] [INFO] Booting worker with pid: 85272
+[2023-06-01 23:41:21 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:85272)
+[2023-06-01 23:41:21 +0900] [85272] [INFO] Worker exiting (pid: 85272)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-01 23:41:21 +0900] [85291] [INFO] Booting worker with pid: 85291
+[2023-06-02 00:00:22 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:85291)
+[2023-06-02 00:00:22 +0900] [85291] [INFO] Worker exiting (pid: 85291)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 58
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+[2023-06-02 00:00:22 +0900] [85331] [INFO] Booting worker with pid: 85331
+[2023-06-02 00:17:31 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:85331)
+[2023-06-02 00:17:31 +0900] [85331] [INFO] Worker exiting (pid: 85331)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 00:17:31 +0900] [85340] [INFO] Booting worker with pid: 85340
+[2023-06-02 00:34:04 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:85340)
+[2023-06-02 00:34:04 +0900] [85340] [INFO] Worker exiting (pid: 85340)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 00:34:04 +0900] [85348] [INFO] Booting worker with pid: 85348
+[2023-06-02 00:50:17 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:85348)
+[2023-06-02 00:50:17 +0900] [85348] [INFO] Worker exiting (pid: 85348)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 00:50:17 +0900] [85356] [INFO] Booting worker with pid: 85356
+[2023-06-02 01:21:59 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:85356)
+[2023-06-02 01:21:59 +0900] [85356] [INFO] Worker exiting (pid: 85356)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+scheduled stuff triggered!
+getting nearest words for 62
+[2023-06-02 01:21:59 +0900] [85427] [INFO] Booting worker with pid: 85427
+[2023-06-02 01:41:02 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:85427)
+[2023-06-02 01:41:02 +0900] [85427] [INFO] Worker exiting (pid: 85427)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 01:41:02 +0900] [85472] [INFO] Booting worker with pid: 85472
+[2023-06-02 02:36:04 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:85472)
+[2023-06-02 02:36:04 +0900] [85472] [INFO] Worker exiting (pid: 85472)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 02:36:04 +0900] [85625] [INFO] Booting worker with pid: 85625
+[2023-06-02 02:52:48 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:85625)
+[2023-06-02 02:52:48 +0900] [85625] [INFO] Worker exiting (pid: 85625)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 02:52:48 +0900] [85633] [INFO] Booting worker with pid: 85633
+[2023-06-02 03:40:22 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:85633)
+[2023-06-02 03:40:22 +0900] [85633] [INFO] Worker exiting (pid: 85633)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 03:40:22 +0900] [85814] [INFO] Booting worker with pid: 85814
+[2023-06-02 04:40:34 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:85814)
+[2023-06-02 04:40:34 +0900] [85814] [INFO] Worker exiting (pid: 85814)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 04:40:34 +0900] [86280] [INFO] Booting worker with pid: 86280
+[2023-06-02 05:08:25 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:86280)
+[2023-06-02 05:08:25 +0900] [86280] [INFO] Worker exiting (pid: 86280)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 05:08:25 +0900] [86340] [INFO] Booting worker with pid: 86340
+[2023-06-02 05:26:55 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:86340)
+[2023-06-02 05:26:55 +0900] [86340] [INFO] Worker exiting (pid: 86340)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 05:26:55 +0900] [86404] [INFO] Booting worker with pid: 86404
+[2023-06-02 06:00:10 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:86404)
+[2023-06-02 06:00:10 +0900] [86404] [INFO] Worker exiting (pid: 86404)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 06:00:10 +0900] [86488] [INFO] Booting worker with pid: 86488
+[2023-06-02 06:17:21 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:86488)
+[2023-06-02 06:17:21 +0900] [86488] [INFO] Worker exiting (pid: 86488)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 06:17:21 +0900] [86496] [INFO] Booting worker with pid: 86496
+[2023-06-02 06:57:40 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:86496)
+[2023-06-02 06:57:40 +0900] [86496] [INFO] Worker exiting (pid: 86496)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 06:57:40 +0900] [86703] [INFO] Booting worker with pid: 86703
+[2023-06-02 07:13:59 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:86703)
+[2023-06-02 07:13:59 +0900] [86703] [INFO] Worker exiting (pid: 86703)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 07:14:00 +0900] [86715] [INFO] Booting worker with pid: 86715
+[2023-06-02 08:00:51 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:86715)
+[2023-06-02 08:00:51 +0900] [86715] [INFO] Worker exiting (pid: 86715)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 08:00:51 +0900] [86854] [INFO] Booting worker with pid: 86854
+[2023-06-02 08:46:51 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:86854)
+[2023-06-02 08:46:51 +0900] [86854] [INFO] Worker exiting (pid: 86854)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 08:46:51 +0900] [87044] [INFO] Booting worker with pid: 87044
+[2023-06-02 12:20:15 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:87044)
+[2023-06-02 12:20:15 +0900] [87044] [INFO] Worker exiting (pid: 87044)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 12:20:15 +0900] [88132] [INFO] Booting worker with pid: 88132
+[2023-06-02 12:27:54 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:88132)
+[2023-06-02 12:27:54 +0900] [88132] [INFO] Worker exiting (pid: 88132)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 12:27:54 +0900] [88163] [INFO] Booting worker with pid: 88163
+[2023-06-02 12:43:58 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:88163)
+[2023-06-02 12:43:58 +0900] [88163] [INFO] Worker exiting (pid: 88163)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 12:43:58 +0900] [88175] [INFO] Booting worker with pid: 88175
+[2023-06-02 13:00:00 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:88175)
+[2023-06-02 13:00:00 +0900] [88175] [INFO] Worker exiting (pid: 88175)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 13:00:00 +0900] [88276] [INFO] Booting worker with pid: 88276
+[2023-06-02 13:16:55 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:88276)
+[2023-06-02 13:16:55 +0900] [88276] [INFO] Worker exiting (pid: 88276)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 13:16:55 +0900] [88287] [INFO] Booting worker with pid: 88287
+[2023-06-02 13:26:22 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:88287)
+[2023-06-02 13:26:22 +0900] [88287] [INFO] Worker exiting (pid: 88287)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 13:26:22 +0900] [88312] [INFO] Booting worker with pid: 88312
+[2023-06-02 13:36:40 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:88312)
+[2023-06-02 13:36:40 +0900] [88312] [INFO] Worker exiting (pid: 88312)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 13:36:40 +0900] [88334] [INFO] Booting worker with pid: 88334
+[2023-06-02 13:38:50 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:88334)
+[2023-06-02 13:38:50 +0900] [88334] [INFO] Worker exiting (pid: 88334)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 13:38:50 +0900] [88374] [INFO] Booting worker with pid: 88374
+[2023-06-02 13:44:35 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:88374)
+[2023-06-02 13:44:35 +0900] [88374] [INFO] Worker exiting (pid: 88374)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 13:44:35 +0900] [88377] [INFO] Booting worker with pid: 88377
+[2023-06-02 13:50:20 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:88377)
+[2023-06-02 13:50:20 +0900] [88377] [INFO] Worker exiting (pid: 88377)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 13:50:21 +0900] [88384] [INFO] Booting worker with pid: 88384
+[2023-06-02 13:54:01 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:88384)
+[2023-06-02 13:54:01 +0900] [88384] [INFO] Worker exiting (pid: 88384)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 13:54:01 +0900] [88388] [INFO] Booting worker with pid: 88388
+[2023-06-02 14:01:58 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:88388)
+[2023-06-02 14:01:58 +0900] [88388] [INFO] Worker exiting (pid: 88388)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 14:01:58 +0900] [88396] [INFO] Booting worker with pid: 88396
+[2023-06-02 14:18:13 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:88396)
+[2023-06-02 14:18:13 +0900] [88396] [INFO] Worker exiting (pid: 88396)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 14:18:13 +0900] [88409] [INFO] Booting worker with pid: 88409
+[2023-06-02 14:34:36 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:88409)
+[2023-06-02 14:34:36 +0900] [88409] [INFO] Worker exiting (pid: 88409)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 14:34:36 +0900] [88422] [INFO] Booting worker with pid: 88422
+[2023-06-02 14:51:49 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:88422)
+[2023-06-02 14:51:49 +0900] [88422] [INFO] Worker exiting (pid: 88422)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 14:51:49 +0900] [88458] [INFO] Booting worker with pid: 88458
+[2023-06-02 14:59:45 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:88458)
+[2023-06-02 14:59:45 +0900] [88458] [INFO] Worker exiting (pid: 88458)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 14:59:45 +0900] [88478] [INFO] Booting worker with pid: 88478
+[2023-06-02 15:15:54 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:88478)
+[2023-06-02 15:15:54 +0900] [88478] [INFO] Worker exiting (pid: 88478)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 15:15:54 +0900] [88488] [INFO] Booting worker with pid: 88488
+[2023-06-02 15:35:56 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:88488)
+[2023-06-02 15:35:56 +0900] [88488] [INFO] Worker exiting (pid: 88488)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 15:35:56 +0900] [88530] [INFO] Booting worker with pid: 88530
+[2023-06-02 16:06:18 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:88530)
+[2023-06-02 16:06:18 +0900] [88530] [INFO] Worker exiting (pid: 88530)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 16:06:18 +0900] [88592] [INFO] Booting worker with pid: 88592
+[2023-06-02 16:23:13 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:88592)
+[2023-06-02 16:23:13 +0900] [88592] [INFO] Worker exiting (pid: 88592)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 16:23:13 +0900] [88622] [INFO] Booting worker with pid: 88622
+[2023-06-02 16:54:50 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:88622)
+[2023-06-02 16:54:50 +0900] [88622] [INFO] Worker exiting (pid: 88622)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 16:54:50 +0900] [88688] [INFO] Booting worker with pid: 88688
+[2023-06-02 17:03:23 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:88688)
+[2023-06-02 17:03:24 +0900] [88688] [INFO] Worker exiting (pid: 88688)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 17:03:24 +0900] [88723] [INFO] Booting worker with pid: 88723
+[2023-06-02 17:11:12 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:88723)
+[2023-06-02 17:11:12 +0900] [88723] [INFO] Worker exiting (pid: 88723)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 17:11:12 +0900] [88730] [INFO] Booting worker with pid: 88730
+[2023-06-02 17:27:52 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:88730)
+[2023-06-02 17:27:52 +0900] [88730] [INFO] Worker exiting (pid: 88730)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 17:27:52 +0900] [88743] [INFO] Booting worker with pid: 88743
+[2023-06-02 18:00:00 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:88743)
+[2023-06-02 18:00:00 +0900] [88743] [INFO] Worker exiting (pid: 88743)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 18:00:00 +0900] [88786] [INFO] Booting worker with pid: 88786
+[2023-06-02 18:18:25 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:88786)
+[2023-06-02 18:18:25 +0900] [88786] [INFO] Worker exiting (pid: 88786)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 18:18:25 +0900] [88804] [INFO] Booting worker with pid: 88804
+[2023-06-02 18:48:31 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:88804)
+[2023-06-02 18:48:31 +0900] [88804] [INFO] Worker exiting (pid: 88804)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 18:48:31 +0900] [88932] [INFO] Booting worker with pid: 88932
+[2023-06-02 19:04:47 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:88932)
+[2023-06-02 19:04:47 +0900] [88932] [INFO] Worker exiting (pid: 88932)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 19:04:47 +0900] [88950] [INFO] Booting worker with pid: 88950
+[2023-06-02 19:22:14 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:88950)
+[2023-06-02 19:22:14 +0900] [88950] [INFO] Worker exiting (pid: 88950)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 19:22:14 +0900] [88993] [INFO] Booting worker with pid: 88993
+[2023-06-02 19:26:57 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:88993)
+[2023-06-02 19:26:57 +0900] [88993] [INFO] Worker exiting (pid: 88993)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 19:26:57 +0900] [88998] [INFO] Booting worker with pid: 88998
+[2023-06-02 19:44:06 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:88998)
+[2023-06-02 19:44:06 +0900] [88998] [INFO] Worker exiting (pid: 88998)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 19:44:06 +0900] [89005] [INFO] Booting worker with pid: 89005
+[2023-06-02 20:00:43 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:89005)
+[2023-06-02 20:00:43 +0900] [89005] [INFO] Worker exiting (pid: 89005)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 20:00:43 +0900] [89056] [INFO] Booting worker with pid: 89056
+[2023-06-02 20:20:44 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:89056)
+[2023-06-02 20:20:44 +0900] [89056] [INFO] Worker exiting (pid: 89056)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 20:20:44 +0900] [89117] [INFO] Booting worker with pid: 89117
+[2023-06-02 20:38:46 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:89117)
+[2023-06-02 20:38:46 +0900] [89117] [INFO] Worker exiting (pid: 89117)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 20:38:46 +0900] [89122] [INFO] Booting worker with pid: 89122
+[2023-06-02 20:55:26 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:89122)
+[2023-06-02 20:55:26 +0900] [89122] [INFO] Worker exiting (pid: 89122)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 20:55:27 +0900] [89126] [INFO] Booting worker with pid: 89126
+[2023-06-02 21:28:18 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:89126)
+[2023-06-02 21:28:18 +0900] [89126] [INFO] Worker exiting (pid: 89126)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 21:28:19 +0900] [89228] [INFO] Booting worker with pid: 89228
+[2023-06-02 21:46:03 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:89228)
+[2023-06-02 21:46:03 +0900] [89228] [INFO] Worker exiting (pid: 89228)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 21:46:03 +0900] [89249] [INFO] Booting worker with pid: 89249
+[2023-06-02 22:04:07 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:89249)
+[2023-06-02 22:04:07 +0900] [89249] [INFO] Worker exiting (pid: 89249)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 22:04:08 +0900] [89270] [INFO] Booting worker with pid: 89270
+[2023-06-02 22:36:58 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:89270)
+[2023-06-02 22:36:58 +0900] [89270] [INFO] Worker exiting (pid: 89270)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 22:36:58 +0900] [89357] [INFO] Booting worker with pid: 89357
+[2023-06-02 22:52:45 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:89357)
+[2023-06-02 22:52:45 +0900] [89357] [INFO] Worker exiting (pid: 89357)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 22:52:45 +0900] [89364] [INFO] Booting worker with pid: 89364
+[2023-06-02 23:14:11 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:89364)
+[2023-06-02 23:14:11 +0900] [89364] [INFO] Worker exiting (pid: 89364)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 23:14:11 +0900] [89455] [INFO] Booting worker with pid: 89455
+[2023-06-02 23:32:17 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:89455)
+[2023-06-02 23:32:17 +0900] [89455] [INFO] Worker exiting (pid: 89455)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 23:32:17 +0900] [89480] [INFO] Booting worker with pid: 89480
+[2023-06-02 23:49:13 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:89480)
+[2023-06-02 23:49:13 +0900] [89480] [INFO] Worker exiting (pid: 89480)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-02 23:49:13 +0900] [89489] [INFO] Booting worker with pid: 89489
+[2023-06-03 00:05:40 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:89489)
+[2023-06-03 00:05:40 +0900] [89489] [INFO] Worker exiting (pid: 89489)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 59
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+[2023-06-03 00:05:40 +0900] [89526] [INFO] Booting worker with pid: 89526
+[2023-06-03 00:22:05 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:89526)
+[2023-06-03 00:22:05 +0900] [89526] [INFO] Worker exiting (pid: 89526)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+getting nearest words for 63
+[2023-06-03 00:22:05 +0900] [89535] [INFO] Booting worker with pid: 89535
+[2023-06-03 00:39:18 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:89535)
+[2023-06-03 00:39:18 +0900] [89535] [INFO] Worker exiting (pid: 89535)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+getting nearest words for 63
+[2023-06-03 00:39:18 +0900] [89549] [INFO] Booting worker with pid: 89549
+[2023-06-03 01:09:46 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:89549)
+[2023-06-03 01:09:46 +0900] [89549] [INFO] Worker exiting (pid: 89549)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+getting nearest words for 63
+[2023-06-03 01:09:46 +0900] [89649] [INFO] Booting worker with pid: 89649
+[2023-06-03 01:23:46 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:89649)
+[2023-06-03 01:23:46 +0900] [89649] [INFO] Worker exiting (pid: 89649)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+getting nearest words for 63
+[2023-06-03 01:23:46 +0900] [89676] [INFO] Booting worker with pid: 89676
+[2023-06-03 01:55:59 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:89676)
+[2023-06-03 01:55:59 +0900] [89676] [INFO] Worker exiting (pid: 89676)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+getting nearest words for 63
+[2023-06-03 01:55:59 +0900] [89779] [INFO] Booting worker with pid: 89779
+[2023-06-03 02:12:02 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:89779)
+[2023-06-03 02:12:02 +0900] [89779] [INFO] Worker exiting (pid: 89779)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+getting nearest words for 63
+[2023-06-03 02:12:02 +0900] [89797] [INFO] Booting worker with pid: 89797
+[2023-06-03 02:29:54 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:89797)
+[2023-06-03 02:29:54 +0900] [89797] [INFO] Worker exiting (pid: 89797)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+getting nearest words for 63
+[2023-06-03 02:29:54 +0900] [89824] [INFO] Booting worker with pid: 89824
+[2023-06-03 03:00:33 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:89824)
+[2023-06-03 03:00:33 +0900] [89824] [INFO] Worker exiting (pid: 89824)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+getting nearest words for 63
+[2023-06-03 03:00:33 +0900] [89852] [INFO] Booting worker with pid: 89852
+[2023-06-03 03:16:53 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:89852)
+[2023-06-03 03:16:53 +0900] [89852] [INFO] Worker exiting (pid: 89852)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+getting nearest words for 63
+[2023-06-03 03:16:53 +0900] [89859] [INFO] Booting worker with pid: 89859
+[2023-06-03 03:47:45 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:89859)
+[2023-06-03 03:47:45 +0900] [89859] [INFO] Worker exiting (pid: 89859)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+getting nearest words for 63
+[2023-06-03 03:47:45 +0900] [89997] [INFO] Booting worker with pid: 89997
+[2023-06-03 04:05:29 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:89997)
+[2023-06-03 04:05:29 +0900] [89997] [INFO] Worker exiting (pid: 89997)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+getting nearest words for 63
+[2023-06-03 04:05:30 +0900] [90165] [INFO] Booting worker with pid: 90165
+[2023-06-03 04:36:37 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:90165)
+[2023-06-03 04:36:37 +0900] [90165] [INFO] Worker exiting (pid: 90165)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+getting nearest words for 63
+[2023-06-03 04:36:37 +0900] [90237] [INFO] Booting worker with pid: 90237
+[2023-06-03 04:53:44 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:90237)
+[2023-06-03 04:53:44 +0900] [90237] [INFO] Worker exiting (pid: 90237)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+getting nearest words for 63
+[2023-06-03 04:53:44 +0900] [90239] [INFO] Booting worker with pid: 90239
+[2023-06-03 05:10:31 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:90239)
+[2023-06-03 05:10:31 +0900] [90239] [INFO] Worker exiting (pid: 90239)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+getting nearest words for 63
+[2023-06-03 05:10:31 +0900] [90262] [INFO] Booting worker with pid: 90262
+[2023-06-03 05:43:21 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:90262)
+[2023-06-03 05:43:21 +0900] [90262] [INFO] Worker exiting (pid: 90262)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+getting nearest words for 63
+[2023-06-03 05:43:21 +0900] [90380] [INFO] Booting worker with pid: 90380
+[2023-06-03 05:58:26 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:90380)
+[2023-06-03 05:58:26 +0900] [90380] [INFO] Worker exiting (pid: 90380)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+getting nearest words for 63
+[2023-06-03 05:58:26 +0900] [90396] [INFO] Booting worker with pid: 90396
+[2023-06-03 06:29:45 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:90396)
+[2023-06-03 06:29:45 +0900] [90396] [INFO] Worker exiting (pid: 90396)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+getting nearest words for 63
+[2023-06-03 06:29:45 +0900] [90443] [INFO] Booting worker with pid: 90443
+[2023-06-03 06:46:36 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:90443)
+[2023-06-03 06:46:36 +0900] [90443] [INFO] Worker exiting (pid: 90443)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+getting nearest words for 63
+[2023-06-03 06:46:36 +0900] [90449] [INFO] Booting worker with pid: 90449
+[2023-06-03 07:04:23 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:90449)
+[2023-06-03 07:04:23 +0900] [90449] [INFO] Worker exiting (pid: 90449)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+getting nearest words for 63
+[2023-06-03 07:04:23 +0900] [90451] [INFO] Booting worker with pid: 90451
+[2023-06-03 07:37:09 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:90451)
+[2023-06-03 07:37:09 +0900] [90451] [INFO] Worker exiting (pid: 90451)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+getting nearest words for 63
+[2023-06-03 07:37:09 +0900] [90550] [INFO] Booting worker with pid: 90550
+[2023-06-03 07:56:38 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:90550)
+[2023-06-03 07:56:38 +0900] [90550] [INFO] Worker exiting (pid: 90550)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+getting nearest words for 63
+[2023-06-03 07:56:38 +0900] [90580] [INFO] Booting worker with pid: 90580
+[2023-06-03 08:19:09 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:90580)
+[2023-06-03 08:19:09 +0900] [90580] [INFO] Worker exiting (pid: 90580)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+getting nearest words for 63
+[2023-06-03 08:19:09 +0900] [90682] [INFO] Booting worker with pid: 90682
+[2023-06-03 08:28:33 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:90682)
+[2023-06-03 08:28:33 +0900] [90682] [INFO] Worker exiting (pid: 90682)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+getting nearest words for 63
+[2023-06-03 08:28:33 +0900] [90700] [INFO] Booting worker with pid: 90700
+[2023-06-03 08:30:00 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:90700)
+[2023-06-03 08:30:00 +0900] [90700] [INFO] Worker exiting (pid: 90700)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+getting nearest words for 63
+[2023-06-03 08:30:01 +0900] [90720] [INFO] Booting worker with pid: 90720
+[2023-06-03 08:38:20 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:90720)
+[2023-06-03 08:38:20 +0900] [90720] [INFO] Worker exiting (pid: 90720)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+getting nearest words for 63
+[2023-06-03 08:38:20 +0900] [90722] [INFO] Booting worker with pid: 90722
+[2023-06-03 08:47:33 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:90722)
+[2023-06-03 08:47:33 +0900] [90722] [INFO] Worker exiting (pid: 90722)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+getting nearest words for 63
+[2023-06-03 08:47:33 +0900] [90729] [INFO] Booting worker with pid: 90729
+[2023-06-03 08:57:00 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:90729)
+[2023-06-03 08:57:00 +0900] [90729] [INFO] Worker exiting (pid: 90729)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+getting nearest words for 63
+[2023-06-03 08:57:01 +0900] [90735] [INFO] Booting worker with pid: 90735
+[2023-06-03 09:27:44 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:90735)
+[2023-06-03 09:27:44 +0900] [90735] [INFO] Worker exiting (pid: 90735)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+getting nearest words for 63
+[2023-06-03 09:27:44 +0900] [90770] [INFO] Booting worker with pid: 90770
+[2023-06-03 09:48:14 +0900] [77793] [CRITICAL] WORKER TIMEOUT (pid:90770)
+[2023-06-03 09:48:14 +0900] [90770] [INFO] Worker exiting (pid: 90770)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+getting nearest words for 63
+[2023-06-03 09:48:14 +0900] [90792] [INFO] Booting worker with pid: 90792
+[2023-06-03 11:47:57 +0900] [77793] [INFO] Handling signal: term
+[2023-06-03 11:47:57 +0900] [90792] [INFO] Worker exiting (pid: 90792)
+loading valid nearest
+initializing nearest words for solutions
+getting nearest words for 60
+getting nearest words for 61
+getting nearest words for 62
+getting nearest words for 63
+[2023-06-03 11:47:58 +0900] [77793] [INFO] Shutting down: Master
