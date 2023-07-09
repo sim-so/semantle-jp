@@ -55,7 +55,7 @@ def update_nearest():
     if to_delete in app.nearests_words:
         del app.nearests_words[to_delete]
     app.secrets[next_puzzle] = next_word
-    app.nearests[next_puzzle] = get_nearest(next_puzzle, next_word, valid_nearest_words, valid_nearest_vecs)
+    app.nearests[next_puzzle], app.nearests_words_vec_idx[next_puzzle] = get_nearest(next_puzzle, next_word, valid_nearest_words, valid_nearest_vecs)
     app.nearests_words[next_puzzle] = [word for word in app.nearests[next_puzzle].keys()]
 
 
