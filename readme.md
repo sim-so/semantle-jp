@@ -1,4 +1,4 @@
-# セマントル(Semantle日本語版) - 単語類似度パズル
+# イミトル(Semantle日本語版) - 単語類似度パズル
 > このリポジトリはJohannes Gätjenさんの[Semantlich](http://semantlich.johannesgaetjen.de/)をフォークしたものです。
 
 ## 設置 Settings
@@ -21,7 +21,7 @@ wget https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.ja.300.vec.gz
 gzip -d cc.ja.300.vec.gz
 ```
 
-### Save word2vec in db
+### Save word2vec in dba
 ```bash
 cd ..
 python process_vecs.py
