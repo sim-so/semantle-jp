@@ -94,12 +94,11 @@ function getUpdateTimeHours() {
     return midnightUtc.getHours();
 }
 
-function solveStory(guesses, puzzleNumber) {
-    let guess_count = guesses.length - 1;
+function solveStory(guesses, puzzleNumber, winState) {
+    let guess_count = guesses.length;
     let winOrGiveUp = 'ギブアップ';
-    if (storage.getItem("winState") == 1) {
+    if (winState == 1) {
         winOrGiveUp = '正解!';
-        guess_count += 1
         if (guess_count == 1) {
             return `お見事です!初答えでパズル${puzzleNumber}の正解に当てました! https://semantoru.com/`;
         }
@@ -114,23 +113,23 @@ function solveStory(guesses, puzzleNumber) {
             out += ` (ランク ${percentile})`;
         }
         return out;
-    }
+    };
 
     let time = storage.getItem('endTime') - storage.getItem('startTime');
     let timeFormatted = new Date(time).toISOString().substr(11, 8).replace(":", "h").replace(":", "m");
-    let timeInfo = `所要時間: ${timeFormatted}秒\n`
+    let timeInfo = `所要時間: ${timeFormatted}秒\n`;
     if (time > 24 * 3600000) {
-        timeInfo = '所要時間: 24時間\n 以上'
+        timeInfo = '所要時間: 24時間\n 以上';
     }
     if (!shareTime) {
-        timeInfo = ''
+        timeInfo = '';
     }
 
-    let topGuessMsg = ''
+    let topGuessMsg = '';
     const topGuesses = guesses.slice();
     if (shareTopGuess) {
         topGuesses.sort(function(a, b){return b[0]-a[0]});
-        const topGuess = topGuesses[1];
+        const topGuess = topGuesses[0];
         let [similarity, old_guess, percentile, guess_number] = topGuess;
         topGuessMsg = `最高類似度: ${describe(similarity, percentile)}\n`;
     }
@@ -150,13 +149,13 @@ function solveStory(guesses, puzzleNumber) {
             }
         }
         if (element[2] <= 10) {
-            numTop10 += 1
+            numTop10 += 1;
         }
         if (element[2] <= 100) {
-            numTop100 += 1
+            numTop100 += 1;
         }
         if (element[2] <= 1000) {
-            numTop1000 += 1
+            numTop1000 += 1;
         }
     }
 
@@ -205,10 +204,6 @@ let Semantle = (function() {
             return false;
         }
 
-        if (guessData.sim == 1 && !gameOver) {
-            endGame(true, true);
-        }
-
         cache[guess] = guessData;
 
         let percentile = guessData.rank;
@@ -232,6 +227,10 @@ let Semantle = (function() {
             }
         }
         guesses.sort(function(a, b){return b[0]-a[0]});
+
+        if (guessData.sim == 1 && !gameOver) {
+            endGame(true, true);
+        }
 
         if (!gameOver) {
             saveGame(-1, -1);
