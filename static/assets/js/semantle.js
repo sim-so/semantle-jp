@@ -94,7 +94,7 @@ function getUpdateTimeHours() {
     return midnightUtc.getHours();
 }
 
-function solveStory(guesses, puzzleNumber, winState, hints_used) {
+function solveStory(guesses, puzzleNumber, winState) {
     let guess_count = guesses.length;
     let winOrGiveUp = 'ギブアップ';
     if (winState == 1) {
